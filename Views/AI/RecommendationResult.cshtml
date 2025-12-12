@@ -1,0 +1,119 @@
+@model FitnessCenterApp.Models.AIRecommendation
+
+@{
+    ViewData["Title"] = "AI Öneri Sonucu";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h2 class="mb-0"><i class="fas fa-check-circle"></i> Ki?iselle?tirilmi? Fitness Plan?n?z Haz?r!</h2>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="text-center mb-4">
+                        <img src="@Model.ImageUrl" alt="Profil" class="img-thumbnail" style="max-width: 300px;" />
+                    </div>
+                }
+
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h4><i class="fas fa-user"></i> Bilgileriniz</h4>
+                                <div class="row">
+                                    @if (Model.Height.HasValue)
+                                    {
+                                        <div class="col-md-3">
+                                            <strong>Boy:</strong> @Model.Height cm
+                                        </div>
+                                    }
+                                    @if (Model.Weight.HasValue)
+                                    {
+                                        <div class="col-md-3">
+                                            <strong>Kilo:</strong> @Model.Weight kg
+                                        </div>
+                                    }
+                                    @if (Model.Age.HasValue)
+                                    {
+                                        <div class="col-md-3">
+                                            <strong>Ya?:</strong> @Model.Age
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.Goal))
+                                    {
+                                        <div class="col-md-3">
+                                            <strong>Hedef:</strong> @Model.Goal
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Recommendation))
+                {
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-chart-line"></i> Genel De?erlendirme</h4>
+                        </div>
+                        <div class="card-body">
+                            <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.Recommendation</pre>
+                        </div>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.ExercisePlan))
+                {
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="fas fa-dumbbell"></i> Egzersiz Program?n?z</h4>
+                        </div>
+                        <div class="card-body">
+                            <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.ExercisePlan</pre>
+                        </div>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.DietPlan))
+                {
+                    <div class="card mb-4">
+                        <div class="card-header bg-warning text-dark">
+                            <h4 class="mb-0"><i class="fas fa-utensils"></i> Beslenme Plan?n?z</h4>
+                        </div>
+                        <div class="card-body">
+                            <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.DietPlan</pre>
+                        </div>
+                    </div>
+                }
+
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>Not:</strong> Bu plan @Model.CreatedDate.ToString("dd MMMM yyyy HH:mm") tarihinde olu?turulmu?tur.
+                    Daha detayl? bilgi için antrenörlerimizle görü?ebilirsiniz.
+                </div>
+
+                <div class="d-grid gap-2">
+                    <a asp-controller="Appointments" asp-action="Create" class="btn btn-primary btn-lg">
+                        <i class="fas fa-calendar-plus"></i> Antrenörle Randevu Al
+                    </a>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a asp-action="Recommendation" class="btn btn-outline-secondary w-100">
+                                <i class="fas fa-redo"></i> Yeni Öneri Al
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-action="History" class="btn btn-outline-info w-100">
+                                <i class="fas fa-history"></i> Geçmi? Öneriler
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
