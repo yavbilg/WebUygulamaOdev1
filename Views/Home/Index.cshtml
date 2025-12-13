@@ -1,118 +1,159 @@
-﻿@model IEnumerable<FitnessCenterApp.Models.FitnessCenter>
+@model IEnumerable<FitnessCenterApp.Models.FitnessCenter>
 
 @{
     ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+<!-- Hero Section -->
+<div class="jumbotron fade-in">
     <div class="container">
-        <h1 class="display-4"><i class="fas fa-dumbbell"></i> Fitness Center Yönetim Sistemi</h1>
+        <h1 class="display-4">
+            <i class="fas fa-dumbbell"></i> Fitness Center Yönetim Sistemi
+        </h1>
         <p class="lead">Sağlıklı yaşam için profesyonel antrenörler ve modern ekipmanlar</p>
-        <hr class="my-4 bg-white">
+        <hr class="my-4 bg-white opacity-25">
         <p>Randevunuzu hemen alın ve fitness yolculuğunuza başlayın!</p>
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <a class="btn btn-light btn-lg" asp-controller="Appointments" asp-action="Create" role="button">
-                <i class="fas fa-calendar-plus"></i> Randevu Al
-            </a>
-            <a class="btn btn-outline-light btn-lg" asp-controller="AI" asp-action="Recommendation" role="button">
-                <i class="fas fa-robot"></i> AI Önerisi Al
-            </a>
-        }
-        else
-        {
-            <a class="btn btn-light btn-lg" asp-controller="Account" asp-action="Register" role="button">
-                <i class="fas fa-user-plus"></i> Hemen Kayıt Ol
-            </a>
-        }
-    </div>
-</div>
-
-<div class="row mb-4">
-    <div class="col-md-4">
-        <div class="card text-center shadow">
-            <div class="card-body">
-                <i class="fas fa-users fa-3x text-primary mb-3"></i>
-                <h5 class="card-title">Profesyonel Antrenörler</h5>
-                <p class="card-text">Uzman antrenörlerimizle hedeflerinize ulaşın</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card text-center shadow">
-            <div class="card-body">
-                <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
-                <h5 class="card-title">Kolay Randevu</h5>
-                <p class="card-text">Online randevu sistemiyle zamanınızı planlayın</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card text-center shadow">
-            <div class="card-body">
-                <i class="fas fa-robot fa-3x text-info mb-3"></i>
-                <h5 class="card-title">AI Destekli Öneriler</h5>
-                <p class="card-text">Kişiselleştirilmiş egzersiz ve diyet planları</p>
-            </div>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a class="btn btn-light btn-lg shadow-hover" asp-controller="Appointments" asp-action="Create">
+                    <i class="fas fa-calendar-plus"></i> Randevu Al
+                </a>
+                <a class="btn btn-outline-light btn-lg" asp-controller="AI" asp-action="Recommendation">
+                    <i class="fas fa-robot"></i> AI Önerisi Al
+                </a>
+            }
+            else
+            {
+                <a class="btn btn-light btn-lg shadow-hover" asp-controller="Account" asp-action="Register">
+                    <i class="fas fa-user-plus"></i> Hemen Kayıt Ol
+                </a>
+                <a class="btn btn-outline-light btn-lg" asp-controller="Account" asp-action="Login">
+                    <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                </a>
+            }
         </div>
     </div>
 </div>
 
+<!-- Features Section -->
+<div class="row mb-5 g-4">
+    <div class="col-md-4">
+        <div class="feature-card slide-in-left">
+            <i class="fas fa-users text-primary"></i>
+            <h5 class="card-title">Profesyonel Antrenörler</h5>
+            <p class="card-text text-muted">Uzman antrenörlerimizle hedeflerinize ulaşın</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-card fade-in" style="animation-delay: 0.2s;">
+            <i class="fas fa-calendar-check text-success"></i>
+            <h5 class="card-title">Kolay Randevu</h5>
+            <p class="card-text text-muted">Online randevu sistemiyle zamanınızı planlayın</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-card slide-in-right">
+            <i class="fas fa-robot text-info"></i>
+            <h5 class="card-title">AI Destekli Öneriler</h5>
+            <p class="card-text text-muted">Kişiselleştirilmiş egzersiz ve diyet planları</p>
+        </div>
+    </div>
+</div>
+
+<!-- Fitness Centers Section -->
 @if (Model != null && Model.Any())
 {
-    <h2 class="mb-4"><i class="fas fa-building"></i> Salonlarımız</h2>
-    <div class="row">
-        @foreach (var center in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            <i class="fas fa-map-marker-alt"></i> @center.Name
-                        </h5>
-                        <p class="card-text">
-                            <i class="fas fa-map-pin"></i> @center.Address<br />
+    <div class="mb-5">
+        <h2 class="text-center mb-4">
+            <i class="fas fa-building text-gradient"></i> Salonlarımız
+        </h2>
+        <div class="row g-4">
+            @foreach (var center in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">
+                                <i class="fas fa-map-marker-alt"></i> @center.Name
+                            </h5>
+                            <p class="card-text">
+                                <i class="fas fa-map-pin text-muted"></i> @center.Address
+                            </p>
                             @if (!string.IsNullOrEmpty(center.PhoneNumber))
                             {
-                                <i class="fas fa-phone"></i> @center.PhoneNumber<br />
+                                <p class="card-text">
+                                    <i class="fas fa-phone text-success"></i> @center.PhoneNumber
+                                </p>
                             }
-                            <i class="fas fa-clock"></i> @center.OpeningTime.ToString(@"hh\:mm") - @center.ClosingTime.ToString(@"hh\:mm")
-                        </p>
-                        @if (!string.IsNullOrEmpty(center.Description))
-                        {
-                            <p class="card-text"><small class="text-muted">@center.Description</small></p>
-                        }
+                            <p class="card-text">
+                                <i class="fas fa-clock text-info"></i> 
+                                @center.OpeningTime.ToString(@"hh\:mm") - @center.ClosingTime.ToString(@"hh\:mm")
+                            </p>
+                            @if (!string.IsNullOrEmpty(center.Description))
+                            {
+                                <p class="card-text">
+                                    <small class="text-muted">@center.Description</small>
+                                </p>
+                            }
+                            <span class="badge bg-success">
+                                <i class="fas fa-check-circle"></i> Aktif
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 }
 
-<div class="row mt-5">
-    <div class="col-md-12">
-        <div class="card bg-light">
-            <div class="card-body">
-                <h3 class="card-title"><i class="fas fa-info-circle"></i> Hizmetlerimiz</h3>
-                <div class="row">
-                    <div class="col-md-3">
-                        <h5><i class="fas fa-heartbeat"></i> Fitness</h5>
-                        <p>Kişisel antrenman programları</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h5><i class="fas fa-spa"></i> Yoga</h5>
-                        <p>Zihin ve beden dengesı</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h5><i class="fas fa-running"></i> Pilates</h5>
-                        <p>Esneklik ve kas gücü</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h5><i class="fas fa-apple-alt"></i> Beslenme Danışmanlığı</h5>
-                        <p>Kişiselleştirilmiş diyet planları</p>
-                    </div>
+<!-- Services Section -->
+<div class="card bg-light border-0 mb-5">
+    <div class="card-body p-5">
+        <h3 class="text-center mb-4">
+            <i class="fas fa-info-circle text-gradient"></i> Hizmetlerimiz
+        </h3>
+        <div class="row g-4 text-center">
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <i class="fas fa-heartbeat text-danger"></i>
+                    <h5 class="mt-3">Fitness</h5>
+                    <p class="text-muted">Kişisel antrenman programları</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <i class="fas fa-spa text-success"></i>
+                    <h5 class="mt-3">Yoga</h5>
+                    <p class="text-muted">Zihin ve beden dengesi</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <i class="fas fa-running text-primary"></i>
+                    <h5 class="mt-3">Pilates</h5>
+                    <p class="text-muted">Esneklik ve kas gücü</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <i class="fas fa-apple-alt text-warning"></i>
+                    <h5 class="mt-3">Beslenme</h5>
+                    <p class="text-muted">Kişiselleştirilmiş diyet planları</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- CTA Section -->
+<div class="text-center my-5 py-5">
+    <h2 class="mb-4">Hayalinizdeki Vücuda Kavuşun!</h2>
+    <p class="lead text-muted mb-4">Profesyonel ekibimiz sizin için burada</p>
+    @if (User.Identity?.IsAuthenticated != true)
+    {
+        <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register">
+            <i class="fas fa-rocket"></i> Hemen Başla
+        </a>
+    }
 </div>
