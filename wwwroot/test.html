@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Test</title>
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .test-box {
+            padding: 20px;
+            margin: 20px;
+            border: 2px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-primary">CSS Test Sayfası</h1>
+        
+        <div class="test-box">
+            <h2>Bootstrap Test</h2>
+            <button class="btn btn-primary">Primary Button</button>
+            <button class="btn btn-success">Success Button</button>
+            <button class="btn btn-danger">Danger Button</button>
+        </div>
+        
+        <div class="test-box">
+            <h2>Site.css Test</h2>
+            <div class="card">
+                <div class="card-header">Card Header</div>
+                <div class="card-body">Card Body</div>
+            </div>
+        </div>
+        
+        <div class="test-box">
+            <h2>Font Awesome Test</h2>
+            <i class="fas fa-home fa-3x"></i>
+            <i class="fas fa-user fa-3x"></i>
+            <i class="fas fa-heart fa-3x"></i>
+        </div>
+    </div>
+    
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        console.log('jQuery loaded:', typeof jQuery !== 'undefined');
+        console.log('Bootstrap loaded:', typeof bootstrap !== 'undefined');
+    </script>
+</body>
+</html>
