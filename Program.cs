@@ -53,10 +53,26 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+    app.UseHttpsRedirection();
+}
+else
+{
+    app.UseDeveloperExceptionPage();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+// Static files with caching disabled in development
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        if (app.Environment.IsDevelopment())
+        {
+            ctx.Context.Response.Headers.Append("Cache-Control", "no-cache, no-store, must-revalidate");
+            ctx.Context.Response.Headers.Append("Expires", "0");
+        }
+    }
+});
+
 app.UseRouting();
 
 app.UseAuthentication();
