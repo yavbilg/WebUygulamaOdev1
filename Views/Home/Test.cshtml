@@ -1,5 +1,7 @@
 @{
     ViewData["Title"] = "Diagnostic Test";
+    var isDevelopment = Context.Request.Host.Host == "localhost" || Context.Request.Host.Host == "127.0.0.1";
+    var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
 }
 
 <!DOCTYPE html>
@@ -27,16 +29,35 @@
         }
         .success { background-color: #d4edda; border-color: #c3e6cb; }
         .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info-box {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-5">🔍 Static Files Diagnostic Test</h1>
         
+        <!-- Environment Info -->
+        <div class="info-box">
+            <h3>🌐 Ortam Bilgileri</h3>
+            <ul>
+                <li><strong>URL:</strong> @baseUrl</li>
+                <li><strong>Protocol:</strong> @Context.Request.Scheme</li>
+                <li><strong>Host:</strong> @Context.Request.Host</li>
+                <li><strong>Environment:</strong> @(isDevelopment ? "Development (localhost)" : "Production")</li>
+                <li><strong>ASP.NET Version:</strong> @Environment.Version</li>
+            </ul>
+        </div>
+        
         <!-- Test 1: Bootstrap -->
         <div class="test-section">
             <h2>Test 1: Bootstrap CSS</h2>
             <p>Path: <code>~/lib/bootstrap/dist/css/bootstrap.min.css</code></p>
+            <p>Resolved: <code>@baseUrl/lib/bootstrap/dist/css/bootstrap.min.css</code></p>
             <div class="alert alert-info">
                 <strong>Test:</strong> Bu kutu mavi renkte ve güzel şekilde stillendirilmiş olmalı
             </div>
@@ -68,6 +89,7 @@
         <div class="test-section">
             <h2>Test 3: Custom CSS (site.css)</h2>
             <p>Path: <code>~/css/site.css</code></p>
+            <p>Resolved: <code>@baseUrl/css/site.css</code></p>
             <div class="card shadow-lg">
                 <div class="card-header bg-gradient-primary text-white">
                     <h5 class="mb-0">Test Card Header</h5>
@@ -82,8 +104,8 @@
         <!-- Test 4: JavaScript -->
         <div class="test-section">
             <h2>Test 4: JavaScript Libraries</h2>
-            <p>jQuery: <code>~/lib/jquery/dist/jquery.min.js</code></p>
-            <p>Bootstrap JS: <code>~/lib/bootstrap/dist/js/bootstrap.bundle.min.js</code></p>
+            <p>jQuery: <code>@baseUrl/lib/jquery/dist/jquery.min.js</code></p>
+            <p>Bootstrap JS: <code>@baseUrl/lib/bootstrap/dist/js/bootstrap.bundle.min.js</code></p>
             <div id="js-test-result" class="alert alert-secondary">
                 JavaScript test yükleniyor...
             </div>
@@ -93,15 +115,15 @@
         <!-- Test 5: Network Requests -->
         <div class="test-section">
             <h2>Test 5: Network Inspection</h2>
-            <p>F12'ye basın ve Network sekmesine gidin</p>
+            <p><strong>F12'ye basın ve Network sekmesine gidin</strong></p>
             <ol>
                 <li>Sayfayı yenileyin (F5)</li>
                 <li>Aşağıdaki dosyaları arayın:
                     <ul>
-                        <li>bootstrap.min.css (Status: 200 ✓)</li>
-                        <li>site.css (Status: 200 ✓)</li>
-                        <li>jquery.min.js (Status: 200 ✓)</li>
-                        <li>bootstrap.bundle.min.js (Status: 200 ✓)</li>
+                        <li><code>bootstrap.min.css</code> (Status: 200 ✓)</li>
+                        <li><code>site.css</code> (Status: 200 ✓)</li>
+                        <li><code>jquery.min.js</code> (Status: 200 ✓)</li>
+                        <li><code>bootstrap.bundle.min.js</code> (Status: 200 ✓)</li>
                     </ul>
                 </li>
                 <li>Eğer 404 görüyorsanız, dosya yüklenmemiş demektir ✗</li>
@@ -174,6 +196,7 @@
             console.log('Current URL:', window.location.href);
             console.log('Protocol:', window.location.protocol);
             console.log('Host:', window.location.host);
+            console.log('Base URL:', '@baseUrl');
         };
     </script>
 </body>
