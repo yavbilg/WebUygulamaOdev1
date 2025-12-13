@@ -1,0 +1,13 @@
+/* === DIAGNOSTIC CSS TEST === */
+/* Bu dosya yüklendiyse, body arka planı KIRMIZI olmalı */
+body {
+    background-color: #ff0000 !important;
+    color: white !important;
+}
+
+h1::before {
+    content: "⚠️ DIAGNOSTIC MODE - CSS YÜKLÜ ⚠️ ";
+    color: yellow;
+    font-size: 2rem;
+    display: block;
+}
