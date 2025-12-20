@@ -1,18 +1,18 @@
 @model FitnessCenterApp.ViewModels.AIRecommendationViewModel
 
 @{
-    ViewData["Title"] = "AI Egzersiz �nerisi";
+    ViewData["Title"] = "AI Egzersiz Önerisi";
 }
 
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-primary text-white">
-                <h2 class="mb-0"><i class="fas fa-robot"></i> AI Destekli Egzersiz ve Diyet �nerisi</h2>
+                <h2 class="mb-0"><i class="fas fa-robot"></i> AI Destekli Egzersiz ve Diyet Önerisi</h2>
             </div>
             <div class="card-body">
                 <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i> Ki?iselle?tirilmi? egzersiz ve beslenme plan? almak i�in bilgilerinizi girin.
+                    <i class="fas fa-info-circle"></i> Kişiselleştirilmiş egzersiz ve beslenme planı almak için bilgilerinizi girin.
                 </div>
 
                 <form asp-action="Recommendation" method="post" enctype="multipart/form-data">
@@ -48,10 +48,10 @@
                         <div class="col-md-6 mb-3">
                             <label asp-for="BodyType" class="form-label"></label>
                             <select asp-for="BodyType" class="form-select">
-                                <option value="">-- Se�iniz --</option>
-                                <option value="Ektomorf">Ektomorf (?nce yap?l?)</option>
+                                <option value="">-- Seçiniz --</option>
+                                <option value="Ektomorf">Ektomorf (İnce yapılı)</option>
                                 <option value="Mezomorf">Mezomorf (Atletik)</option>
-                                <option value="Endomorf">Endomorf (Geni? yap?l?)</option>
+                                <option value="Endomorf">Endomorf (Geniş yapılı)</option>
                             </select>
                             <span asp-validation-for="BodyType" class="text-danger"></span>
                         </div>
@@ -60,10 +60,10 @@
                     <div class="mb-3">
                         <label asp-for="Goal" class="form-label"></label>
                         <select asp-for="Goal" class="form-select">
-                            <option value="">-- Hedef Se�iniz --</option>
+                            <option value="">-- Hedef Seçiniz --</option>
                             <option value="Kilo verme">Kilo Verme</option>
-                            <option value="Kas geli?tirme">Kas Geli?tirme</option>
-                            <option value="Dayan?kl?l?k">Dayan?kl?l?k Art?rma</option>
+                            <option value="Kas geliştirme">Kas Geliştirme</option>
+                            <option value="Dayanıklılık">Dayanıklılık Artırma</option>
                             <option value="Esneklik">Esneklik ve Denge</option>
                             <option value="Genel fitness">Genel Fitness</option>
                         </select>
@@ -75,16 +75,16 @@
                         <input asp-for="ImageFile" class="form-control" type="file" accept="image/*" />
                         <span asp-validation-for="ImageFile" class="text-danger"></span>
                         <div class="form-text">
-                            <i class="fas fa-camera"></i> Opsiyonel: V�cut foto?raf? y�kleyerek daha detayl? analiz alabilirsiniz
+                            <i class="fas fa-camera"></i> Opsiyonel: Vücut fotoğrafı yükleyerek daha detaylı analiz alabilirsiniz
                         </div>
                     </div>
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-magic"></i> AI �nerisi Al
+                            <i class="fas fa-magic"></i> AI Önerisi Al
                         </button>
                         <a asp-action="History" class="btn btn-outline-secondary">
-                            <i class="fas fa-history"></i> Ge�mi? �nerilerim
+                            <i class="fas fa-history"></i> Geçmiş Önerilerim
                         </a>
                     </div>
                 </form>
@@ -93,13 +93,13 @@
 
         <div class="card mt-4 shadow">
             <div class="card-body">
-                <h5><i class="fas fa-lightbulb"></i> �zellikler</h5>
+                <h5><i class="fas fa-lightbulb"></i> Özellikler</h5>
                 <ul>
-                    <li><i class="fas fa-check text-success"></i> Ki?iselle?tirilmi? 12 haftal?k egzersiz program?</li>
-                    <li><i class="fas fa-check text-success"></i> BMI hesaplamas? ve analizi</li>
-                    <li><i class="fas fa-check text-success"></i> Detayl? beslenme �nerileri</li>
-                    <li><i class="fas fa-check text-success"></i> G�nl�k kalori ihtiyac? hesaplama</li>
-                    <li><i class="fas fa-check text-success"></i> Hedef odakl? program tasar?m?</li>
+                    <li><i class="fas fa-check text-success"></i> Kişiselleştirilmiş 12 haftalık egzersiz programı</li>
+                    <li><i class="fas fa-check text-success"></i> BMI hesaplaması ve analizi</li>
+                    <li><i class="fas fa-check text-success"></i> Detaylı beslenme önerileri</li>
+                    <li><i class="fas fa-check text-success"></i> Günlük kalori ihtiyacı hesaplama</li>
+                    <li><i class="fas fa-check text-success"></i> Hedef odaklı program tasarımı</li>
                 </ul>
             </div>
         </div>

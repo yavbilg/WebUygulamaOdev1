@@ -1,7 +1,7 @@
 @model FitnessCenterApp.Models.Trainer
 
 @{
-    ViewData["Title"] = "Antrenör Ekle";
+    ViewData["Title"] = "AntrenÃ¶r Ekle";
     var fitnessCenters = ViewBag.FitnessCenters as List<FitnessCenterApp.Models.FitnessCenter>;
 }
 
@@ -9,7 +9,7 @@
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-success text-white">
-                <h2 class="mb-0"><i class="fas fa-user-plus"></i> Yeni Antrenör Ekle</h2>
+                <h2 class="mb-0"><i class="fas fa-user-plus"></i> Yeni AntrenÃ¶r Ekle</h2>
             </div>
             <div class="card-body">
                 <form asp-action="CreateTrainer" method="post">
@@ -43,7 +43,7 @@
                     <div class="mb-3">
                         <label asp-for="FitnessCenterId" class="form-label">Salon</label>
                         <select asp-for="FitnessCenterId" class="form-select">
-                            <option value="">-- Salon Seçin --</option>
+                            <option value="">-- Salon SeÃ§in --</option>
                             @if (fitnessCenters != null)
                             {
                                 foreach (var center in fitnessCenters)
@@ -57,7 +57,7 @@
 
                     <div class="mb-3">
                         <label asp-for="Specialization" class="form-label"></label>
-                        <input asp-for="Specialization" class="form-control" placeholder="Örn: Fitness, Yoga, Pilates" />
+                        <input asp-for="Specialization" class="form-control" placeholder="Ã–rn: Fitness, Yoga, Pilates" />
                         <span asp-validation-for="Specialization" class="text-danger"></span>
                     </div>
 
@@ -83,7 +83,7 @@
                             <i class="fas fa-save"></i> Kaydet
                         </button>
                         <a asp-action="Trainers" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Geri Dön
+                            <i class="fas fa-arrow-left"></i> Geri DÃ¶n
                         </a>
                     </div>
                 </form>

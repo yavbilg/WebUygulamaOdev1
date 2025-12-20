@@ -10,7 +10,7 @@
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-primary text-white">
-                <h2 class="mb-0"><i class="fas fa-calendar-plus"></i> Yeni Randevu Olu?tur</h2>
+                <h2 class="mb-0"><i class="fas fa-calendar-plus"></i> Yeni Randevu OluÅŸtur</h2>
             </div>
             <div class="card-body">
                 <form asp-action="Create" method="post">
@@ -19,7 +19,7 @@
                     <div class="mb-3">
                         <label asp-for="TrainerId" class="form-label"></label>
                         <select asp-for="TrainerId" class="form-select" id="trainerSelect">
-                            <option value="">-- Antrenör Seçin --</option>
+                            <option value="">-- AntrenÃ¶r SeÃ§in --</option>
                             @if (trainers != null)
                             {
                                 foreach (var trainer in trainers)
@@ -36,7 +36,7 @@
                     <div class="mb-3">
                         <label asp-for="ServiceId" class="form-label"></label>
                         <select asp-for="ServiceId" class="form-select" id="serviceSelect">
-                            <option value="">-- Hizmet Seçin --</option>
+                            <option value="">-- Hizmet SeÃ§in --</option>
                             @if (services != null)
                             {
                                 foreach (var service in services)
@@ -60,32 +60,32 @@
                     <div class="mb-3">
                         <label asp-for="StartTime" class="form-label"></label>
                         <select asp-for="StartTime" class="form-select" id="timeSelect">
-                            <option value="">-- Önce tarih ve antrenör seçin --</option>
+                            <option value="">-- Ã–nce tarih ve antrenÃ¶r seÃ§in --</option>
                         </select>
                         <span asp-validation-for="StartTime" class="text-danger"></span>
                         <div id="loadingSpinner" class="spinner-border spinner-border-sm text-primary d-none" role="status">
-                            <span class="visually-hidden">Yükleniyor...</span>
+                            <span class="visually-hidden">YÃ¼kleniyor...</span>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="Notes" class="form-label"></label>
                         <textarea asp-for="Notes" class="form-control" rows="3" 
-                                  placeholder="Varsa özel isteklerinizi belirtiniz..."></textarea>
+                                  placeholder="Varsa Ã¶zel isteklerinizi belirtiniz..."></textarea>
                         <span asp-validation-for="Notes" class="text-danger"></span>
                     </div>
 
                     <div id="appointmentSummary" class="alert alert-info d-none">
-                        <h5><i class="fas fa-info-circle"></i> Randevu Özeti</h5>
+                        <h5><i class="fas fa-info-circle"></i> Randevu Ã–zeti</h5>
                         <p id="summaryText"></p>
                     </div>
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-calendar-check"></i> Randevu Olu?tur
+                            <i class="fas fa-calendar-check"></i> Randevu OluÅŸtur
                         </button>
                         <a asp-action="Index" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Geri Dön
+                            <i class="fas fa-arrow-left"></i> Geri DÃ¶n
                         </a>
                     </div>
                 </form>
@@ -118,18 +118,18 @@
                         success: function (data) {
                             $('#timeSelect').empty();
                             if (data.length > 0) {
-                                $('#timeSelect').append('<option value="">-- Saat Seçin --</option>');
+                                $('#timeSelect').append('<option value="">-- Saat SeÃ§in --</option>');
                                 $.each(data, function (index, time) {
                                     $('#timeSelect').append('<option value="' + time + '">' + time + '</option>');
                                 });
                             } else {
-                                $('#timeSelect').append('<option value="">Bu tarihte müsait saat yok</option>');
+                                $('#timeSelect').append('<option value="">Bu tarihte mÃ¼sait saat yok</option>');
                             }
                             $('#timeSelect').prop('disabled', false);
                             $('#loadingSpinner').addClass('d-none');
                         },
                         error: function () {
-                            alert('Müsait saatler yüklenirken bir hata olu?tu.');
+                            alert('MÃ¼sait saatler yÃ¼klenirken bir hata oluÅŸtu.');
                             $('#loadingSpinner').addClass('d-none');
                             $('#timeSelect').prop('disabled', false);
                         }
@@ -148,7 +148,7 @@
                 var timeText = $('#timeSelect').val();
 
                 if (trainerText && serviceText && dateText && timeText) {
-                    var summary = '<strong>Antrenör:</strong> ' + trainerText + '<br>' +
+                    var summary = '<strong>AntrenÃ¶r:</strong> ' + trainerText + '<br>' +
                                   '<strong>Hizmet:</strong> ' + serviceText + '<br>' +
                                   '<strong>Tarih:</strong> ' + dateText + '<br>' +
                                   '<strong>Saat:</strong> ' + timeText;

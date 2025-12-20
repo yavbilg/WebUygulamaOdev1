@@ -1,14 +1,14 @@
 @model FitnessCenterApp.Models.AIRecommendation
 
 @{
-    ViewData["Title"] = "AI �neri Sonucu";
+    ViewData["Title"] = "AI Öneri Sonucu";
 }
 
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="card shadow">
             <div class="card-header bg-success text-white">
-                <h2 class="mb-0"><i class="fas fa-check-circle"></i> Ki?iselle?tirilmi? Fitness Plan?n?z Haz?r!</h2>
+                <h2 class="mb-0"><i class="fas fa-check-circle"></i> Kişiselleştirilmiş Fitness Planınız Hazır!</h2>
             </div>
             <div class="card-body">
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
@@ -39,7 +39,7 @@
                                     @if (Model.Age.HasValue)
                                     {
                                         <div class="col-md-3">
-                                            <strong>Ya?:</strong> @Model.Age
+                                            <strong>Yaş:</strong> @Model.Age
                                         </div>
                                     }
                                     @if (!string.IsNullOrEmpty(Model.Goal))
@@ -58,7 +58,7 @@
                 {
                     <div class="card mb-4">
                         <div class="card-header bg-primary text-white">
-                            <h4 class="mb-0"><i class="fas fa-chart-line"></i> Genel De?erlendirme</h4>
+                            <h4 class="mb-0"><i class="fas fa-chart-line"></i> Genel Değerlendirme</h4>
                         </div>
                         <div class="card-body">
                             <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.Recommendation</pre>
@@ -70,7 +70,7 @@
                 {
                     <div class="card mb-4">
                         <div class="card-header bg-success text-white">
-                            <h4 class="mb-0"><i class="fas fa-dumbbell"></i> Egzersiz Program?n?z</h4>
+                            <h4 class="mb-0"><i class="fas fa-dumbbell"></i> Egzersiz Programınız</h4>
                         </div>
                         <div class="card-body">
                             <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.ExercisePlan</pre>
@@ -82,7 +82,7 @@
                 {
                     <div class="card mb-4">
                         <div class="card-header bg-warning text-dark">
-                            <h4 class="mb-0"><i class="fas fa-utensils"></i> Beslenme Plan?n?z</h4>
+                            <h4 class="mb-0"><i class="fas fa-utensils"></i> Beslenme Planınız</h4>
                         </div>
                         <div class="card-body">
                             <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.DietPlan</pre>
@@ -92,23 +92,23 @@
 
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle"></i> 
-                    <strong>Not:</strong> Bu plan @Model.CreatedDate.ToString("dd MMMM yyyy HH:mm") tarihinde olu?turulmu?tur.
-                    Daha detayl? bilgi i�in antren�rlerimizle g�r�?ebilirsiniz.
+                    <strong>Not:</strong> Bu plan @Model.CreatedDate.ToString("dd MMMM yyyy HH:mm") tarihinde oluşturulmuştur.
+                    Daha detaylı bilgi için antrenörlerimizle görüşebilirsiniz.
                 </div>
 
                 <div class="d-grid gap-2">
                     <a asp-controller="Appointments" asp-action="Create" class="btn btn-primary btn-lg">
-                        <i class="fas fa-calendar-plus"></i> Antren�rle Randevu Al
+                        <i class="fas fa-calendar-plus"></i> Antrenörle Randevu Al
                     </a>
                     <div class="row">
                         <div class="col-md-6">
                             <a asp-action="Recommendation" class="btn btn-outline-secondary w-100">
-                                <i class="fas fa-redo"></i> Yeni �neri Al
+                                <i class="fas fa-redo"></i> Yeni Öneri Al
                             </a>
                         </div>
                         <div class="col-md-6">
                             <a asp-action="History" class="btn btn-outline-info w-100">
-                                <i class="fas fa-history"></i> Ge�mi? �neriler
+                                <i class="fas fa-history"></i> Geçmiş Öneriler
                             </a>
                         </div>
                     </div>

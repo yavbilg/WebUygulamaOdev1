@@ -49,7 +49,7 @@ namespace FitnessCenterApp.Controllers
 
                 if (result.Succeeded)
                 {
-                    // Varsay?lan olarak Member rolü ata
+                    // Varsayılan olarak Member rolü ata
                     if (await _roleManager.RoleExistsAsync("Member"))
                     {
                         await _userManager.AddToRoleAsync(user, "Member");
@@ -98,7 +98,7 @@ namespace FitnessCenterApp.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                ModelState.AddModelError(string.Empty, "Geçersiz giri? denemesi.");
+                ModelState.AddModelError(string.Empty, "Geçersiz giriş denemesi.");
             }
 
             return View(model);
