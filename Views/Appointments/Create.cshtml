@@ -1,89 +1,180 @@
+@*
+  Sayfa: Yeni randevu oluşturma ekranı
+
+  Model: `AppointmentCreateViewModel`
+  ViewBag:
+    - Trainers: Antrenör listesi
+    - Services: Hizmet listesi
+
+  Akış:
+    1) Kullanıcı antrenör, hizmet ve tarih seçer.
+    2) Antrenör + tarih seçilince uygun saatler AJAX ile yüklenir.
+    3) Hizmet + saat seçilince "Randevu Özeti" alanı otomatik güncellenir.
+*@
+
+@* ViewModel'i sayfaya bağla - Randevu oluşturma için gerekli verileri tutar *@
 @model FitnessCenterApp.ViewModels.AppointmentCreateViewModel
 
 @{
+    // Sayfa başlığını ayarla - Tarayıcı sekmesinde ve sayfa üstünde görünür
     ViewData["Title"] = "Yeni Randevu";
+    
+    // ViewBag'den gelen antrenör listesini al ve tip dönüşümü yap
     var trainers = ViewBag.Trainers as List<FitnessCenterApp.Models.Trainer>;
+    
+    // ViewBag'den gelen hizmet listesini al ve tip dönüşümü yap
     var services = ViewBag.Services as List<FitnessCenterApp.Models.Service>;
 }
 
+@* === Form Bölümü: Randevu bilgileri giriş ekranı === *@
+@* Bootstrap grid sistemi kullanarak formu ekranın ortasına hizala *@
 <div class="row justify-content-center">
+    @* Formun genişliğini orta boy ekran için 8 kolon olarak ayarla *@
     <div class="col-md-8">
+        @* Card (kart) bileşeni - Formu görsel olarak gruplar ve gölge efekti ekler *@
         <div class="card shadow">
+            @* Kart başlığı - Mavi arka plan ve beyaz metin ile vurgu yapar *@
             <div class="card-header bg-primary text-white">
-                <h2 class="mb-0"><i class="fas fa-calendar-plus"></i> Yeni Randevu Oluştur</h2>
+                <h2 class="mb-0">
+                    @* Font Awesome ikonu ile görsel zenginlik *@
+                    <i class="fas fa-calendar-plus"></i> Yeni Randevu Oluştur
+                </h2>
             </div>
+            
+            @* Kart gövdesi - Form elemanlarının bulunduğu ana alan *@
             <div class="card-body">
+                @* Form etiketi - POST metoduyla Create action'ına veri gönderir *@
                 <form asp-action="Create" method="post">
+                    @* Validasyon hatalarının tümünü göster - Kırmızı metin ile *@
                     <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
+                    @* === Antrenör Seçimi Bölümü === *@
+                    @* Kullanıcının randevu almak istediği antrenörü seçmesini sağlar *@
                     <div class="mb-3">
+                        @* Label - Model property'sine göre otomatik etiket oluşturur *@
                         <label asp-for="TrainerId" class="form-label"></label>
+                        
+                        @* Dropdown (select) kutusu - Antrenör seçimi için *@
                         <select asp-for="TrainerId" class="form-select" id="trainerSelect">
+                            @* Varsayılan seçenek - Kullanıcıya talimat verir *@
                             <option value="">-- Antrenör Seçin --</option>
+                            
+                            @* Antrenör listesi null kontrolü - Hata önleme *@
                             @if (trainers != null)
                             {
+                                @* Her antrenör için bir option elementi oluştur *@
                                 foreach (var trainer in trainers)
                                 {
+                                    @* Antrenörün ID'si value, adı ve uzmanlık alanı gösterilen metin *@
                                     <option value="@trainer.Id">
                                         @trainer.FirstName @trainer.LastName - @trainer.Specialization
                                     </option>
                                 }
                             }
                         </select>
+                        
+                        @* Antrenör seçimi için validasyon hatası mesajı gösterimi *@
                         <span asp-validation-for="TrainerId" class="text-danger"></span>
                     </div>
 
+                    @* === Hizmet Seçimi Bölümü === *@
+                    @* Kullanıcının almak istediği fitness hizmetini seçmesini sağlar *@
                     <div class="mb-3">
+                        @* Hizmet seçimi için etiket *@
                         <label asp-for="ServiceId" class="form-label"></label>
+                        
+                        @* Dropdown - Hizmet seçimi için, data attribute'ları JS'de kullanılır *@
                         <select asp-for="ServiceId" class="form-select" id="serviceSelect">
+                            @* Varsayılan boş seçenek *@
                             <option value="">-- Hizmet Seçin --</option>
+                            
+                            @* Hizmet listesi null kontrolü *@
                             @if (services != null)
                             {
+                                @* Her hizmet için option oluştur *@
                                 foreach (var service in services)
                                 {
+                                    @* data-duration ve data-price: JavaScript'te özet hesaplama için kullanılır *@
                                     <option value="@service.Id" data-duration="@service.DurationMinutes" data-price="@service.Price">
+                                        @* Hizmet adı, süresi ve fiyatı gösterilir *@
                                         @service.Name - @service.DurationMinutes dk - @service.Price.ToString("C")
                                     </option>
                                 }
                             }
                         </select>
+                        
+                        @* Hizmet seçimi için validasyon hatası mesajı *@
                         <span asp-validation-for="ServiceId" class="text-danger"></span>
                     </div>
 
+                    @* === Tarih Seçimi Bölümü === *@
+                    @* Kullanıcının randevu tarihini seçmesini sağlar *@
                     <div class="mb-3">
+                        @* Tarih seçimi için etiket *@
                         <label asp-for="AppointmentDate" class="form-label"></label>
-                        <input asp-for="AppointmentDate" class="form-control" type="date" id="appointmentDate" 
+                        
+                        @* Date input - HTML5 tarih seçici, bugünden önceki tarihler devre dışı *@
+                        <input asp-for="AppointmentDate" class="form-control" type="date" id="appointmentDate"
                                min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                        
+                        @* Tarih için validasyon hatası mesajı *@
                         <span asp-validation-for="AppointmentDate" class="text-danger"></span>
                     </div>
 
+                    @* === Saat Seçimi Bölümü === *@
+                    @* Antrenör ve tarihe göre müsait saatleri gösterir - AJAX ile dinamik yüklenir *@
                     <div class="mb-3">
+                        @* Saat seçimi için etiket *@
                         <label asp-for="StartTime" class="form-label"></label>
+                        
+                        @* Dropdown - Başlangıçta boş, AJAX ile doldurulur *@
                         <select asp-for="StartTime" class="form-select" id="timeSelect">
+                            @* Kullanıcıya önce diğer alanları doldurması gerektiğini belirten mesaj *@
                             <option value="">-- Önce tarih ve antrenör seçin --</option>
                         </select>
+                        
+                        @* Saat seçimi için validasyon hatası mesajı *@
                         <span asp-validation-for="StartTime" class="text-danger"></span>
+                        
+                        @* Yükleme göstergesi (spinner) - AJAX isteği sırasında görünür *@
                         <div id="loadingSpinner" class="spinner-border spinner-border-sm text-primary d-none" role="status">
                             <span class="visually-hidden">Yükleniyor...</span>
                         </div>
                     </div>
 
+                    @* === Kullanıcı Notları Bölümü === *@
+                    @* Kullanıcının özel isteklerini veya notlarını girmesini sağlar *@
                     <div class="mb-3">
+                        @* Not alanı için etiket *@
                         <label asp-for="Notes" class="form-label"></label>
-                        <textarea asp-for="Notes" class="form-control" rows="3" 
+                        
+                        @* Çok satırlı metin alanı (textarea) - 3 satır yüksekliğinde *@
+                        <textarea asp-for="Notes" class="form-control" rows="3"
                                   placeholder="Varsa özel isteklerinizi belirtiniz..."></textarea>
+                        
+                        @* Not alanı için validasyon hatası mesajı *@
                         <span asp-validation-for="Notes" class="text-danger"></span>
                     </div>
 
+                    @* === Randevu Özeti Bölümü === *@
+                    @* Kullanıcının yaptığı seçimlerin özetini gösterir - JavaScript ile dinamik güncellenir *@
                     <div id="appointmentSummary" class="alert alert-info d-none">
+                        @* Özet başlığı - Bilgi ikonu ile *@
                         <h5><i class="fas fa-info-circle"></i> Randevu Özeti</h5>
+                        
+                        @* Özet metni - JavaScript tarafından doldurulur *@
                         <p id="summaryText"></p>
                     </div>
 
+                    @* === Form Aksiyon Butonları === *@
+                    @* Formu gönderme ve iptal etme işlemleri için butonlar *@
                     <div class="d-grid gap-2">
+                        @* Submit butonu - Formu sunucuya gönderir *@
                         <button type="submit" class="btn btn-primary btn-lg">
                             <i class="fas fa-calendar-check"></i> Randevu Oluştur
                         </button>
+                        
+                        @* Geri dönüş butonu - Index sayfasına yönlendirir *@
                         <a asp-action="Index" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i> Geri Dön
                         </a>
@@ -94,67 +185,129 @@
     </div>
 </div>
 
+@* === JavaScript Bölümü === *@
+@* Bu bölüm sayfanın en altında render edilir ve form etkileşimlerini yönetir *@
 @section Scripts {
+    @* jQuery Validation scriptlerini ekle - Form doğrulama için gerekli *@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
+
     <script>
+        // Sayfa tamamen yüklendikten sonra JavaScript kodlarını çalıştır
         $(document).ready(function () {
+            
+            // === Olay Dinleyicileri (Event Listeners) === //
+            
+            // Antrenör dropdown'u veya tarih alanı değiştiğinde müsait saatleri yeniden yükle
+            // Change event: Kullanıcı farklı bir antrenör veya tarih seçtiğinde tetiklenir
             $('#appointmentDate, #trainerSelect').change(function () {
-                loadAvailableTimeSlots();
+                loadAvailableTimeSlots(); // Müsait saatleri getir
             });
 
+            // === Müsait Zaman Dilimlerini Yükleme Fonksiyonu === //
+            // Seçilen antrenör ve tarihe göre uygun saatleri sunucudan çeker
             function loadAvailableTimeSlots() {
+                // Seçili antrenörün ID'sini al
                 var trainerId = $('#trainerSelect').val();
+                
+                // Seçili tarihi al
                 var date = $('#appointmentDate').val();
 
+                // Hem antrenör hem de tarih seçilmişse işleme devam et
                 if (trainerId && date) {
+                    // Yükleme spinner'ını göster - Kullanıcıya işlem yapıldığını belirt
                     $('#loadingSpinner').removeClass('d-none');
+                    
+                    // Saat dropdown'unu devre dışı bırak - AJAX tamamlanana kadar
                     $('#timeSelect').prop('disabled', true);
 
+                    // AJAX isteği - Sunucudan müsait saatleri al
                     $.ajax({
+                        // Controller'daki GetAvailableTimeSlots action'ının URL'ini oluştur
                         url: '@Url.Action("GetAvailableTimeSlots", "Appointments")',
+                        
+                        // HTTP GET metodu kullan
                         type: 'GET',
+                        
+                        // Sunucuya gönderilecek parametreler
                         data: { trainerId: trainerId, date: date },
+                        
+                        // Başarılı yanıt geldiğinde çalışacak fonksiyon
                         success: function (data) {
+                            // Saat dropdown'unu temizle - Önceki seçenekleri sil
                             $('#timeSelect').empty();
+                            
+                            // Eğer müsait saatler varsa
                             if (data.length > 0) {
+                                // Varsayılan boş seçeneği ekle
                                 $('#timeSelect').append('<option value="">-- Saat Seçin --</option>');
+                                
+                                // Her müsait saat için option elementi oluştur
                                 $.each(data, function (index, time) {
                                     $('#timeSelect').append('<option value="' + time + '">' + time + '</option>');
                                 });
                             } else {
+                                // Müsait saat yoksa kullanıcıya bilgi ver
                                 $('#timeSelect').append('<option value="">Bu tarihte müsait saat yok</option>');
                             }
+                            
+                            // Saat dropdown'unu tekrar aktif et
                             $('#timeSelect').prop('disabled', false);
+                            
+                            // Yükleme spinner'ını gizle
                             $('#loadingSpinner').addClass('d-none');
                         },
+                        
+                        // Hata oluştuğunda çalışacak fonksiyon
                         error: function () {
+                            // Kullanıcıya hata mesajı göster
                             alert('Müsait saatler yüklenirken bir hata oluştu.');
+                            
+                            // Spinner'ı gizle
                             $('#loadingSpinner').addClass('d-none');
+                            
+                            // Saat dropdown'unu tekrar aktif et
                             $('#timeSelect').prop('disabled', false);
                         }
                     });
                 }
             }
 
+            // === Özet Güncelleme Olay Dinleyicisi === //
+            // Hizmet veya saat seçimi değiştiğinde özet alanını güncelle
             $('#serviceSelect, #timeSelect').change(function () {
-                updateSummary();
+                updateSummary(); // Özet alanını yenile
             });
 
+            // === Randevu Özeti Güncelleme Fonksiyonu === //
+            // Kullanıcının yaptığı tüm seçimleri özetleyerek gösterir
             function updateSummary() {
+                // Seçili antrenörün gösterilen metnini al (örn: "Ali Yılmaz - Yoga")
                 var trainerText = $('#trainerSelect option:selected').text();
+                
+                // Seçili hizmetin gösterilen metnini al (örn: "Kişisel Antrenman - 60 dk - ₺500")
                 var serviceText = $('#serviceSelect option:selected').text();
+                
+                // Seçili tarihi al
                 var dateText = $('#appointmentDate').val();
+                
+                // Seçili saati al
                 var timeText = $('#timeSelect').val();
 
+                // Tüm alanlar doldurulmuşsa özeti göster
                 if (trainerText && serviceText && dateText && timeText) {
+                    // HTML formatında özet metni oluştur
                     var summary = '<strong>Antrenör:</strong> ' + trainerText + '<br>' +
-                                  '<strong>Hizmet:</strong> ' + serviceText + '<br>' +
-                                  '<strong>Tarih:</strong> ' + dateText + '<br>' +
-                                  '<strong>Saat:</strong> ' + timeText;
+                        '<strong>Hizmet:</strong> ' + serviceText + '<br>' +
+                        '<strong>Tarih:</strong> ' + dateText + '<br>' +
+                        '<strong>Saat:</strong> ' + timeText;
+                    
+                    // Özet metnini HTML'e yerleştir
                     $('#summaryText').html(summary);
+                    
+                    // Özet alanını görünür yap (d-none class'ını kaldır)
                     $('#appointmentSummary').removeClass('d-none');
                 } else {
+                    // Eksik alan varsa özet alanını gizle
                     $('#appointmentSummary').addClass('d-none');
                 }
             }

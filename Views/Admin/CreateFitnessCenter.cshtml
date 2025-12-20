@@ -1,73 +1,130 @@
+@*
+  Sayfa: Yeni fitness salonu ekleme ekranı
+  
+  Model: FitnessCenter - Salon bilgilerini tutar
+  
+  Bu sayfa admin kullanıcıların sisteme yeni fitness salonu eklemesini sağlar
+  Salon adı, adresi, iletişim bilgileri, çalışma saatleri gibi temel bilgiler alınır
+*@
+
+@* Model bağlama - FitnessCenter model sınıfını sayfaya bağla *@
 @model FitnessCenterApp.Models.FitnessCenter
 
 @{
+    // Sayfa başlığını ayarla - Tarayıcı sekmesinde görünür
     ViewData["Title"] = "Salon Ekle";
 }
 
+@* Bootstrap grid sistemi - Sayfayı ortala *@
 <div class="row justify-content-center">
+    @* Orta boy ekranlarda 8 kolon genişliğinde alan *@
     <div class="col-md-8">
+        @* Kart bileşeni - Formu görsel olarak gruplar, gölge efekti ekler *@
         <div class="card shadow">
+            @* Kart başlığı - Mavi arka plan ile vurgu *@
             <div class="card-header bg-primary text-white">
-                <h2 class="mb-0"><i class="fas fa-building"></i> Yeni Salon Ekle</h2>
+                <h2 class="mb-0">
+                    @* Font Awesome bina ikonu - Salon temsili *@
+                    <i class="fas fa-building"></i> Yeni Salon Ekle
+                </h2>
             </div>
+            
+            @* Kart gövdesi - Form elemanlarının bulunduğu ana alan *@
             <div class="card-body">
+                @* Form etiketi - POST metoduyla CreateFitnessCenter action'ına veri gönderir *@
                 <form asp-action="CreateFitnessCenter" method="post">
+                    @* Tüm validasyon hatalarını göster - Kırmızı renkte *@
                     <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
+                    @* === Salon Adı === *@
+                    @* Fitness salonunun resmi adı *@
                     <div class="mb-3">
+                        @* Label - Model property'sine göre otomatik etiket *@
                         <label asp-for="Name" class="form-label"></label>
+                        @* Input alanı - Salon adı girişi *@
                         <input asp-for="Name" class="form-control" />
+                        @* Validasyon hatası mesajı gösterimi *@
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
+                    @* === Adres Bilgisi === *@
+                    @* Salonun fiziksel konumu, tam adresi *@
                     <div class="mb-3">
                         <label asp-for="Address" class="form-label"></label>
+                        @* Textarea - Uzun adres bilgisi için, 2 satır yüksekliğinde *@
                         <textarea asp-for="Address" class="form-control" rows="2"></textarea>
                         <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
 
+                    @* === İletişim Bilgileri - İki sütunlu düzen === *@
                     <div class="row">
+                        @* Sol sütun - Telefon numarası *@
                         <div class="col-md-6 mb-3">
                             <label asp-for="PhoneNumber" class="form-label"></label>
+                            @* Telefon numarası input alanı *@
                             <input asp-for="PhoneNumber" class="form-control" />
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
+                        
+                        @* Sağ sütun - E-posta adresi *@
                         <div class="col-md-6 mb-3">
                             <label asp-for="Email" class="form-label"></label>
+                            @* Email tipinde input - Otomatik format kontrolü *@
                             <input asp-for="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
 
+                    @* === Çalışma Saatleri - İki sütunlu düzen === *@
+                    @* Salonun açılış ve kapanış saatlerini belirler *@
                     <div class="row">
+                        @* Sol sütun - Açılış saati *@
                         <div class="col-md-6 mb-3">
                             <label asp-for="OpeningTime" class="form-label"></label>
+                            @* Time tipinde input - Saat seçici gösterir (HH:mm formatında) *@
                             <input asp-for="OpeningTime" class="form-control" type="time" />
                             <span asp-validation-for="OpeningTime" class="text-danger"></span>
                         </div>
+                        
+                        @* Sağ sütun - Kapanış saati *@
                         <div class="col-md-6 mb-3">
                             <label asp-for="ClosingTime" class="form-label"></label>
+                            @* Time tipinde input - Saat seçici gösterir *@
                             <input asp-for="ClosingTime" class="form-control" type="time" />
                             <span asp-validation-for="ClosingTime" class="text-danger"></span>
                         </div>
                     </div>
 
+                    @* === Açıklama / Detay Bilgiler === *@
+                    @* Salon hakkında genel bilgiler, özellikler, ekipmanlar vb. *@
                     <div class="mb-3">
                         <label asp-for="Description" class="form-label"></label>
+                        @* Çok satırlı metin alanı (textarea) - 3 satır yüksekliğinde *@
                         <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
 
+                    @* === Aktiflik Durumu === *@
+                    @* Salonun aktif olup olmadığını belirler (Hizmet veriyor mu?) *@
                     <div class="mb-3 form-check">
+                        @* Checkbox input - Varsayılan olarak işaretli (checked) *@
                         <input asp-for="IsActive" class="form-check-input" checked />
+                        @* Checkbox etiketi *@
                         <label asp-for="IsActive" class="form-check-label"></label>
                     </div>
 
+                    @* === Form Aksiyon Butonları === *@
+                    @* Kaydetme ve geri dönme işlemleri için butonlar *@
                     <div class="d-grid gap-2">
+                        @* Submit butonu - Formu sunucuya gönderir *@
                         <button type="submit" class="btn btn-primary btn-lg">
+                            @* Kaydet ikonu *@
                             <i class="fas fa-save"></i> Kaydet
                         </button>
+                        
+                        @* Geri dönüş butonu - Salon listesi sayfasına yönlendirir *@
                         <a asp-action="FitnessCenters" class="btn btn-secondary">
+                            @* Geri ok ikonu *@
                             <i class="fas fa-arrow-left"></i> Geri Dön
                         </a>
                     </div>
@@ -77,6 +134,9 @@
     </div>
 </div>
 
+@* === JavaScript Bölümü === *@
+@* Sayfanın en altında render edilir *@
 @section Scripts {
+    @* jQuery Validation scriptlerini ekle - Form doğrulama için gerekli *@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

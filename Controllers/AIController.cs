@@ -131,67 +131,67 @@ namespace FitnessCenterApp.Controllers
                 var heightInMeters = model.Height.Value / 100;
                 var bmi = model.Weight.Value / (heightInMeters * heightInMeters);
 
-                recommendation.AppendLine($"?? V�cut Kitle ?ndeksiniz (BMI): {bmi:F2}");
+                recommendation.AppendLine($"📊 Vücut Kitle İndeksiniz (BMI): {bmi:F2}");
                 
                 if (bmi < 18.5)
-                    recommendation.AppendLine("Kilonuz normal de?erin alt?nda. Kilo alman?z �nerilir.");
+                    recommendation.AppendLine("Kilonuz normal değerin altında. Kilo almanız önerilir.");
                 else if (bmi < 25)
-                    recommendation.AppendLine("Kilonuz normal aral?kta. Bu kilonuzu koruyun.");
+                    recommendation.AppendLine("Kilonuz normal aralıkta. Bu kilonuzu koruyun.");
                 else if (bmi < 30)
-                    recommendation.AppendLine("Fazla kiloluysunuz. Sa?l?kl? bir kilo verme program? �nerilir.");
+                    recommendation.AppendLine("Fazla kiloluysunuz. Sağlıklı bir kilo verme programı önerilir.");
                 else
-                    recommendation.AppendLine("Obezite riski var. Doktor kontrol�nde kilo verme program? �nerilir.");
+                    recommendation.AppendLine("Obezite riski var. Doktor kontrolünde kilo verme programı önerilir.");
             }
 
             recommendation.AppendLine();
-            recommendation.AppendLine($"?? Hedefiniz: {model.Goal ?? "Genel Fitness"}");
+            recommendation.AppendLine($"🎯 Hedefiniz: {model.Goal ?? "Genel Fitness"}");
             recommendation.AppendLine();
 
             // Generate exercise plan based on goal
-            exercisePlan.AppendLine("??? 12 Haftal?k Egzersiz Program?:");
+            exercisePlan.AppendLine("💪 12 Haftalık Egzersiz Programı:");
             exercisePlan.AppendLine();
 
             switch (model.Goal?.ToLower())
             {
                 case "kilo verme":
                 case "kilo vermek":
-                    exercisePlan.AppendLine("**Hafta 1-4: Temel Kardiyovask�ler Egzersizler**");
-                    exercisePlan.AppendLine("� Pazartesi: 30 dk ko?u band? (orta tempo)");
-                    exercisePlan.AppendLine("� �ar?amba: 45 dk bisiklet");
-                    exercisePlan.AppendLine("� Cuma: 30 dk HIIT antrenman?");
-                    exercisePlan.AppendLine("� Cumartesi: 60 dk y�r�y�?");
+                    exercisePlan.AppendLine("**Hafta 1-4: Temel Kardiyovasküler Egzersizler**");
+                    exercisePlan.AppendLine("• Pazartesi: 30 dk koşu bandı (orta tempo)");
+                    exercisePlan.AppendLine("• Çarşamba: 45 dk bisiklet");
+                    exercisePlan.AppendLine("• Cuma: 30 dk HIIT antrenmanı");
+                    exercisePlan.AppendLine("• Cumartesi: 60 dk yürüyüş");
                     exercisePlan.AppendLine();
-                    exercisePlan.AppendLine("**Hafta 5-8: Art?r?lm?? Yo?unluk**");
-                    exercisePlan.AppendLine("� Pazartesi: 40 dk ko?u (artan tempo)");
-                    exercisePlan.AppendLine("� Sal?: Kuvvet antrenman? (full body)");
-                    exercisePlan.AppendLine("� Per?embe: 50 dk bisiklet + 15 dk core");
-                    exercisePlan.AppendLine("� Cumartesi: 45 dk HIIT + 30 dk y�r�y�?");
+                    exercisePlan.AppendLine("**Hafta 5-8: Artırılmış Yoğunluk**");
+                    exercisePlan.AppendLine("• Pazartesi: 40 dk koşu (artan tempo)");
+                    exercisePlan.AppendLine("• Salı: Kuvvet antrenmanı (full body)");
+                    exercisePlan.AppendLine("• Perşembe: 50 dk bisiklet + 15 dk core");
+                    exercisePlan.AppendLine("• Cumartesi: 45 dk HIIT + 30 dk yürüyüş");
                     break;
 
-                case "kas geli?tirme":
+                case "kas geliştirme":
                 case "kas yapmak":
-                    exercisePlan.AppendLine("**Hafta 1-4: Temel Kuvvet Antrenman?**");
-                    exercisePlan.AppendLine("� Pazartesi: G�?�s + Triseps (Bench press, dips, push-ups)");
-                    exercisePlan.AppendLine("� �ar?amba: S?rt + Biseps (Pull-ups, rows, curls)");
-                    exercisePlan.AppendLine("� Cuma: Bacak + Omuz (Squat, deadlift, shoulder press)");
+                    exercisePlan.AppendLine("**Hafta 1-4: Temel Kuvvet Antrenmanı**");
+                    exercisePlan.AppendLine("• Pazartesi: Göğüs + Triseps (Bench press, dips, push-ups)");
+                    exercisePlan.AppendLine("• Çarşamba: Sırt + Biseps (Pull-ups, rows, curls)");
+                    exercisePlan.AppendLine("• Cuma: Bacak + Omuz (Squat, deadlift, shoulder press)");
                     exercisePlan.AppendLine();
-                    exercisePlan.AppendLine("**Hafta 5-8: Hipertrofi Program?**");
-                    exercisePlan.AppendLine("� 4 set x 8-12 tekrar");
-                    exercisePlan.AppendLine("� A??rl?k art???: %5-10");
-                    exercisePlan.AppendLine("� Dinlenme: 60-90 saniye");
+                    exercisePlan.AppendLine("**Hafta 5-8: Hipertrofi Programı**");
+                    exercisePlan.AppendLine("• 4 set x 8-12 tekrar");
+                    exercisePlan.AppendLine("• Ağırlık artışı: %5-10");
+                    exercisePlan.AppendLine("• Dinlenme: 60-90 saniye");
                     break;
 
                 default:
-                    exercisePlan.AppendLine("**Hafta 1-4: Dengeli Fitness Program?**");
-                    exercisePlan.AppendLine("� Pazartesi: 30 dk kardio + 20 dk kuvvet");
-                    exercisePlan.AppendLine("� �ar?amba: Yoga/Pilates (60 dk)");
-                    exercisePlan.AppendLine("� Cuma: Full body kuvvet antrenman?");
-                    exercisePlan.AppendLine("� Cumartesi: Aktif dinlenme (y�r�y�?, y�zme)");
+                    exercisePlan.AppendLine("**Hafta 1-4: Dengeli Fitness Programı**");
+                    exercisePlan.AppendLine("• Pazartesi: 30 dk kardio + 20 dk kuvvet");
+                    exercisePlan.AppendLine("• Çarşamba: Yoga/Pilates (60 dk)");
+                    exercisePlan.AppendLine("• Cuma: Full body kuvvet antrenmanı");
+                    exercisePlan.AppendLine("• Cumartesi: Aktif dinlenme (yürüyüş, yüzme)");
                     break;
             }
 
             // Generate diet plan
-            dietPlan.AppendLine("?? Beslenme �nerileri:");
+            dietPlan.AppendLine("🍽️ Beslenme Önerileri:");
             dietPlan.AppendLine();
 
             if (model.Weight.HasValue)
@@ -200,42 +200,42 @@ namespace FitnessCenterApp.Controllers
                     ? (int)(model.Weight.Value * 24)
                     : (int)(model.Weight.Value * 30);
 
-                dietPlan.AppendLine($"**G�nl�k Kalori ?htiyac?: ~{dailyCalories} kcal**");
+                dietPlan.AppendLine($"**Günlük Kalori İhtiyacı: ~{dailyCalories} kcal**");
                 dietPlan.AppendLine();
             }
 
-            dietPlan.AppendLine("**Sabah Kahvalt?s? (07:00-08:00):**");
-            dietPlan.AppendLine("� 2 yumurta omlet");
-            dietPlan.AppendLine("� 2 dilim tam tah?ll? ekmek");
-            dietPlan.AppendLine("� Avokado veya zeytinya??");
-            dietPlan.AppendLine("� Mevsim meyveleri");
+            dietPlan.AppendLine("**Sabah Kahvaltısı (07:00-08:00):**");
+            dietPlan.AppendLine("• 2 yumurta omlet");
+            dietPlan.AppendLine("• 2 dilim tam tahıllı ekmek");
+            dietPlan.AppendLine("• Avokado veya zeytinyağı");
+            dietPlan.AppendLine("• Mevsim meyveleri");
             dietPlan.AppendLine();
 
-            dietPlan.AppendLine("**Ara �?�n (10:30):**");
-            dietPlan.AppendLine("� 1 avu� �i? badem");
-            dietPlan.AppendLine("� 1 muz");
+            dietPlan.AppendLine("**Ara Öğün (10:30):**");
+            dietPlan.AppendLine("• 1 avuç çiğ badem");
+            dietPlan.AppendLine("• 1 muz");
             dietPlan.AppendLine();
 
-            dietPlan.AppendLine("**�?le Yeme?i (12:30-13:30):**");
-            dietPlan.AppendLine("� Izgara tavuk/bal?k (150-200g)");
-            dietPlan.AppendLine("� Bol ye?il salata");
-            dietPlan.AppendLine("� Bulgur pilav? veya kinoa");
-            dietPlan.AppendLine("� Yo?urt");
+            dietPlan.AppendLine("**Öğle Yemeği (12:30-13:30):**");
+            dietPlan.AppendLine("• Izgara tavuk/balık (150-200g)");
+            dietPlan.AppendLine("• Bol yeşil salata");
+            dietPlan.AppendLine("• Bulgur pilavı veya kinoa");
+            dietPlan.AppendLine("• Yoğurt");
             dietPlan.AppendLine();
 
-            dietPlan.AppendLine("**Ara �?�n (16:00):**");
-            dietPlan.AppendLine("� Protein shake veya ayran");
-            dietPlan.AppendLine("� Tam tah?ll? kraker");
+            dietPlan.AppendLine("**Ara Öğün (16:00):**");
+            dietPlan.AppendLine("• Protein shake veya ayran");
+            dietPlan.AppendLine("• Tam tahıllı kraker");
             dietPlan.AppendLine();
 
-            dietPlan.AppendLine("**Ak?am Yeme?i (19:00-20:00):**");
-            dietPlan.AppendLine("� Izgara et/tavuk/bal?k");
-            dietPlan.AppendLine("� Buharda pi?mi? sebzeler");
-            dietPlan.AppendLine("� Salata");
+            dietPlan.AppendLine("**Akşam Yemeği (19:00-20:00):**");
+            dietPlan.AppendLine("• Izgara et/tavuk/balık");
+            dietPlan.AppendLine("• Buharda pişmiş sebzeler");
+            dietPlan.AppendLine("• Salata");
             dietPlan.AppendLine();
 
-            dietPlan.AppendLine("**Su T�ketimi:** G�nde en az 2-3 litre su i�in");
-            dietPlan.AppendLine("**Not:** Antrenman �ncesi ve sonras? beslenmesini ihmal etmeyin!");
+            dietPlan.AppendLine("**Su Tüketimi:** Günde en az 2-3 litre su için");
+            dietPlan.AppendLine("**Not:** Antrenman öncesi ve sonrası beslenmesini ihmal etmeyin!");
 
             return (recommendation.ToString(), exercisePlan.ToString(), dietPlan.ToString());
         }

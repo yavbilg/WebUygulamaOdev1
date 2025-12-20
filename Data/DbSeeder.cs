@@ -8,7 +8,7 @@ namespace FitnessCenterApp.Data
     {
         public static async Task SeedDataAsync(ApplicationDbContext context)
         {
-            // E?er veri varsa seed yapma
+            // Eğer veri varsa seed yapma
             if (await context.FitnessCenters.AnyAsync())
                 return;
 
@@ -23,18 +23,18 @@ namespace FitnessCenterApp.Data
                     Email = "info@sakaryafitness.com",
                     OpeningTime = new TimeSpan(6, 0, 0),
                     ClosingTime = new TimeSpan(23, 0, 0),
-                    Description = "Modern ekipmanlar ve profesyonel antren�rler ile hizmetinizdeyiz.",
+                    Description = "Modern ekipmanlar ve profesyonel antrenörler ile hizmetinizdeyiz.",
                     IsActive = true
                 },
                 new FitnessCenter
                 {
                     Name = "Elite Sports Club",
-                    Address = "Adapazar?, Sakarya",
+                    Address = "Adapazarı, Sakarya",
                     PhoneNumber = "0264 987 65 43",
                     Email = "contact@elitesports.com",
                     OpeningTime = new TimeSpan(7, 0, 0),
                     ClosingTime = new TimeSpan(22, 0, 0),
-                    Description = "L�ks fitness deneyimi i�in Elite Sports Club'a bekleriz.",
+                    Description = "Lüks fitness deneyimi için Elite Sports Club'a bekleriz.",
                     IsActive = true
                 }
             };
@@ -48,23 +48,23 @@ namespace FitnessCenterApp.Data
                 new Trainer
                 {
                     FirstName = "Ahmet",
-                    LastName = "Y?lmaz",
+                    LastName = "Yılmaz",
                     Email = "ahmet.yilmaz@fitness.com",
                     PhoneNumber = "0555 111 22 33",
-                    Specialization = "Kuvvet Antrenman? ve Kas Geli?tirme",
-                    Bio = "10 y?ll?k deneyime sahip profesyonel fitness antren�r�",
+                    Specialization = "Kuvvet Antrenmanı ve Kas Geliştirme",
+                    Bio = "10 yıllık deneyime sahip profesyonel fitness antrenörü",
                     ExperienceYears = 10,
                     IsAvailable = true,
                     FitnessCenterId = fitnessCenters[0].Id
                 },
                 new Trainer
                 {
-                    FirstName = "Ay?e",
+                    FirstName = "Ayşe",
                     LastName = "Demir",
                     Email = "ayse.demir@fitness.com",
                     PhoneNumber = "0555 222 33 44",
                     Specialization = "Yoga ve Pilates",
-                    Bio = "Sertifikal? yoga ve pilates e?itmeni",
+                    Bio = "Sertifikalı yoga ve pilates eğitmeni",
                     ExperienceYears = 7,
                     IsAvailable = true,
                     FitnessCenterId = fitnessCenters[0].Id
@@ -75,8 +75,8 @@ namespace FitnessCenterApp.Data
                     LastName = "Kaya",
                     Email = "mehmet.kaya@fitness.com",
                     PhoneNumber = "0555 333 44 55",
-                    Specialization = "Kardiyovask�ler Egzersiz ve Kilo Verme",
-                    Bio = "Beslenme ve kardiyovask�ler egzersiz uzman?",
+                    Specialization = "Kardiyovasküler Egzersiz ve Kilo Verme",
+                    Bio = "Beslenme ve kardiyovasküler egzersiz uzmanı",
                     ExperienceYears = 8,
                     IsAvailable = true,
                     FitnessCenterId = fitnessCenters[1].Id
@@ -91,8 +91,8 @@ namespace FitnessCenterApp.Data
             {
                 new Service
                 {
-                    Name = "Ki?isel Antrenman",
-                    Description = "Bire bir ki?isel antrenman seans?",
+                    Name = "Kişisel Antrenman",
+                    Description = "Bire bir kişisel antrenman seansı",
                     DurationMinutes = 60,
                     Price = 200,
                     ServiceType = "Fitness",
@@ -111,8 +111,8 @@ namespace FitnessCenterApp.Data
                 },
                 new Service
                 {
-                    Name = "Pilates Seans?",
-                    Description = "Bire bir pilates antrenman?",
+                    Name = "Pilates Seansı",
+                    Description = "Bire bir pilates antrenmanı",
                     DurationMinutes = 60,
                     Price = 150,
                     ServiceType = "Pilates",
@@ -121,8 +121,8 @@ namespace FitnessCenterApp.Data
                 },
                 new Service
                 {
-                    Name = "Kardio Program?",
-                    Description = "Kilo verme odakl? kardiyovask�ler program",
+                    Name = "Kardio Programı",
+                    Description = "Kilo verme odaklı kardiyovasküler program",
                     DurationMinutes = 45,
                     Price = 120,
                     ServiceType = "Kardio",
@@ -131,11 +131,11 @@ namespace FitnessCenterApp.Data
                 },
                 new Service
                 {
-                    Name = "Beslenme Dan??manl???",
-                    Description = "Ki?iselle?tirilmi? beslenme program?",
+                    Name = "Beslenme Danışmanlığı",
+                    Description = "Kişiselleştirilmiş beslenme programı",
                     DurationMinutes = 30,
                     Price = 150,
-                    ServiceType = "Dan??manl?k",
+                    ServiceType = "Danışmanlık",
                     IsActive = true,
                     FitnessCenterId = fitnessCenters[1].Id
                 }
@@ -161,7 +161,7 @@ namespace FitnessCenterApp.Data
             // Trainer Availabilities
             var availabilities = new List<TrainerAvailability>();
             
-            // Her antren�r i�in Pazartesi-Cuma 09:00-18:00 aras? m�sait
+            // Her antrenör için Pazartesi-Cuma 09:00-18:00 arası müsait
             foreach (var trainer in trainers)
             {
                 for (int day = 1; day <= 5; day++) // Pazartesi-Cuma

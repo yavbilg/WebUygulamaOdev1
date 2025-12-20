@@ -1,55 +1,139 @@
+@*
+  ===================================
+  SHARED LAYOUT (ANA ŞABLON) DOSYASI
+  ===================================
+  
+  Bu dosya, uygulamadaki TÜM sayfaların ortak şablonunu tanımlar.
+  
+  İşlevleri:
+  - Header (Üst menü/navbar) tüm sayfalarda aynı
+  - Footer (Alt bilgi) tüm sayfalarda aynı
+  - CSS ve JavaScript dosyaları tek yerden yönetilir
+  - TempData mesajları (Başarı/Hata) tek yerden gösterilir
+  - @RenderBody() ile her sayfanın içeriği buraya yerleştirilir
+  
+  Kullanım:
+  - Diğer view'lar _ViewStart.cshtml ile otomatik bu layout'u kullanır
+  - Layout = "_Layout"; ile manuel belirtilebilir
+*@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    @* ===================================
+       HTML HEAD Bölümü - Sayfa Meta Bilgileri
+       =================================== *@
+    
+    @* Karakter kodlaması - Türkçe karakterler için UTF-8 *@
     <meta charset="utf-8" />
+    
+    @* Responsive tasarım için viewport ayarı - Mobil uyumluluk *@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    @* Sayfa başlığı - Her sayfada ViewData["Title"] değişir *@
+    @* Örnek: "Randevularım - Fitness Center" *@
     <title>@ViewData["Title"] - Fitness Center</title>
     
+    @* ===================================
+       CSS Dosyaları - Stil Tanımlamaları
+       =================================== *@
+    
+    @* Bootstrap CSS - Responsive grid sistemi ve hazır bileşenler *@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    
+    @* Font Awesome - İkon kütüphanesi (CDN'den yüklenir) *@
+    @* fas fa-dumbbell, fas fa-user gibi ikonlar için *@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    @* Site özel CSS - Projeye özel stil dosyası *@
+    @* asp-append-version: Dosya değiştiğinde tarayıcı cache'ini temizler *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+    @* ===================================
+       HEADER Bölümü - Üst Menü (Navbar)
+       =================================== *@
     <header>
+        @* Bootstrap navbar - Responsive navigasyon menüsü *@
+        @* navbar-dark bg-primary: Mavi arka plan, beyaz metin *@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
+                @* ===================================
+                   Logo ve Marka Adı
+                   =================================== *@
+                @* Ana sayfaya yönlendiren logo linki *@
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    @* Dambıl ikonu - Fitness teması *@
                     <i class="fas fa-dumbbell"></i> Fitness Center
                 </a>
+                
+                @* Mobil menü açma butonu (hamburger icon) *@
+                @* Küçük ekranlarda menü kapalı gelir, bu butonla açılır *@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
+                @* ===================================
+                   Menü İçeriği (Collapse)
+                   =================================== *@
+                @* Mobilde gizlenir, butonla açılır *@
                 <div class="collapse navbar-collapse" id="navbarNav">
+                    @* ===================================
+                       Sol Taraf Menüler
+                       =================================== *@
+                    @* me-auto: Margin-end auto, sağa itilmeyi sağlar *@
                     <ul class="navbar-nav me-auto">
+                        @* Ana Sayfa linki - Her zaman görünür *@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
                         </li>
+                        
+                        @* ===================================
+                           Giriş Yapmış Kullanıcılar İçin Menüler
+                           =================================== *@
+                        @* User.Identity?.IsAuthenticated: Kullanıcı giriş yaptı mı? *@
                         @if (User.Identity?.IsAuthenticated == true)
                         {
+                            @* Randevularım menüsü *@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Appointments" asp-action="Index">
                                     <i class="fas fa-calendar-check"></i> Randevularım
                                 </a>
                             </li>
+                            
+                            @* Yeni Randevu oluşturma menüsü *@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Appointments" asp-action="Create">
                                     <i class="fas fa-plus"></i> Yeni Randevu
                                 </a>
                             </li>
+                            
+                            @* AI Öneri sistemi menüsü *@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="AI" asp-action="Recommendation">
                                     <i class="fas fa-robot"></i> AI Önerisi
                                 </a>
                             </li>
+                            
+                            @* ===================================
+                               Admin Paneli (Sadece Admin Rolü İçin)
+                               =================================== *@
+                            @* User.IsInRole("Admin"): Kullanıcının Admin rolü var mı? *@
                             if (User.IsInRole("Admin"))
                             {
+                                @* Dropdown menü - Yönetim seçenekleri *@
                                 <li class="nav-item dropdown">
+                                    @* Dropdown toggle - Tıklanınca alt menü açılır *@
                                     <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" data-bs-toggle="dropdown">
                                         <i class="fas fa-cog"></i> Yönetim
                                     </a>
+                                    @* Alt menü öğeleri *@
                                     <ul class="dropdown-menu">
+                                        @* Admin Dashboard *@
                                         <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                                        @* Ayırıcı çizgi *@
                                         <li><hr class="dropdown-divider"></li>
+                                        @* Yönetim sayfaları *@
                                         <li><a class="dropdown-item" asp-controller="Admin" asp-action="FitnessCenters">Salonlar</a></li>
                                         <li><a class="dropdown-item" asp-controller="Admin" asp-action="Trainers">Antrenörler</a></li>
                                         <li><a class="dropdown-item" asp-controller="Admin" asp-action="Services">Hizmetler</a></li>
@@ -59,17 +143,31 @@
                             }
                         }
                     </ul>
+                    
+                    @* ===================================
+                       Sağ Taraf Menüler (Kullanıcı İşlemleri)
+                       =================================== *@
                     <ul class="navbar-nav">
+                        @* ===================================
+                           Giriş Yapmış Kullanıcı Menüsü
+                           =================================== *@
                         @if (User.Identity?.IsAuthenticated == true)
                         {
+                            @* Kullanıcı dropdown menüsü *@
                             <li class="nav-item dropdown">
+                                @* Kullanıcı adı ile dropdown *@
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
                                     <i class="fas fa-user"></i> @User.Identity.Name
                                 </a>
+                                @* Alt menü - Sağa hizalı (dropdown-menu-end) *@
                                 <ul class="dropdown-menu dropdown-menu-end">
+                                    @* Profil linki *@
                                     <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> Profilim</a></li>
+                                    @* Ayırıcı *@
                                     <li><hr class="dropdown-divider"></li>
+                                    @* Çıkış yapma formu *@
                                     <li>
+                                        @* Form - POST isteği ile çıkış yapar *@
                                         <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                                             <button type="submit" class="dropdown-item">
                                                 <i class="fas fa-sign-out-alt"></i> Çıkış Yap
@@ -81,11 +179,16 @@
                         }
                         else
                         {
+                            @* ===================================
+                               Giriş Yapmamış Kullanıcılar İçin
+                               =================================== *@
+                            @* Giriş Yap linki *@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="Login">
                                     <i class="fas fa-sign-in-alt"></i> Giriş Yap
                                 </a>
                             </li>
+                            @* Kayıt Ol linki *@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="Register">
                                     <i class="fas fa-user-plus"></i> Kayıt Ol
@@ -98,38 +201,77 @@
         </nav>
     </header>
 
+    @* ===================================
+       MAIN Container - Ana İçerik Bölümü
+       =================================== *@
     <div class="container mt-4">
+        @* ===================================
+           TempData Mesajları (Bildirimler)
+           =================================== *@
+        @* Başarı mesajları - Yeşil arka plan *@
+        @* TempData: Bir sonraki sayfaya veri taşımak için kullanılır *@
         @if (TempData["Success"] != null)
         {
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <i class="fas fa-check-circle"></i> @TempData["Success"]
+                @* Kapatma butonu *@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         }
+        
+        @* Hata mesajları - Kırmızı arka plan *@
         @if (TempData["Error"] != null)
         {
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <i class="fas fa-exclamation-circle"></i> @TempData["Error"]
+                @* Kapatma butonu *@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         }
 
+        @* ===================================
+           RenderBody - Sayfa İçeriği
+           =================================== *@
+        @* @RenderBody(): Diğer view'ların içeriği buraya yerleştirilir *@
+        @* Örnek: Index.cshtml, Create.cshtml içerikleri burada gösterilir *@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
+    @* ===================================
+       FOOTER - Alt Bilgi Bölümü
+       =================================== *@
+    @* mt-auto: Margin-top auto, sayfanın en altına yapışır *@
     <footer class="footer mt-auto py-3 bg-light border-top">
         <div class="container text-center">
             <span class="text-muted">
+                @* Telif hakkı metni *@
                 &copy; 2025 Fitness Center Yönetim Sistemi - Tüm Hakları Saklıdır
             </span>
         </div>
     </footer>
 
+    @* ===================================
+       JavaScript Dosyaları
+       =================================== *@
+    @* Sayfanın en altında yüklenir - Sayfa performansı için *@
+    
+    @* jQuery - JavaScript kütüphanesi, Bootstrap için gerekli *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
+    @* Bootstrap JavaScript - Dropdown, collapse gibi interaktif bileşenler için *@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    @* Site özel JavaScript dosyası *@
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    @* ===================================
+       RenderSection - Sayfa Özel Scriptler
+       =================================== *@
+    @* @RenderSectionAsync("Scripts"): Her sayfanın kendi JavaScript'leri buraya eklenir *@
+    @* required: false - Bu section zorunlu değil, olmayabilir *@
+    @* Örnek: Create.cshtml'deki AJAX kodları burada render edilir *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

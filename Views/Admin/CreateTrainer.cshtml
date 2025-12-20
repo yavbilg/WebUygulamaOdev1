@@ -1,26 +1,58 @@
+@*
+  Sayfa: Yeni antrenör ekleme ekranı
+  
+  Model: Trainer - Antrenör bilgilerini tutar
+  ViewBag:
+    - FitnessCenters: Salon listesi - Antrenörün çalışacağı salon seçimi için
+  
+  Bu sayfa admin kullanıcıların sisteme yeni antrenör eklemesini sağlar
+*@
+
+@* Model bağlama - Trainer model sınıfını sayfaya bağla *@
 @model FitnessCenterApp.Models.Trainer
 
 @{
+    // Sayfa başlığını ayarla - Tarayıcı sekmesinde görünür
     ViewData["Title"] = "Antrenör Ekle";
+    
+    // ViewBag'den salon listesini al ve tip dönüşümü yap
     var fitnessCenters = ViewBag.FitnessCenters as List<FitnessCenterApp.Models.FitnessCenter>;
 }
 
+@* Bootstrap grid sistemi - Sayfayı ortala *@
 <div class="row justify-content-center">
+    @* Orta boy ekranlarda 8 kolon genişliğinde alan *@
     <div class="col-md-8">
+        @* Kart bileşeni - Formu görsel olarak gruplar, gölge efekti ekler *@
         <div class="card shadow">
+            @* Kart başlığı - Yeşil arka plan ile vurgu *@
             <div class="card-header bg-success text-white">
-                <h2 class="mb-0"><i class="fas fa-user-plus"></i> Yeni Antrenör Ekle</h2>
+                <h2 class="mb-0">
+                    @* Font Awesome kullanıcı ekleme ikonu *@
+                    <i class="fas fa-user-plus"></i> Yeni Antrenör Ekle
+                </h2>
             </div>
+            
+            @* Kart gövdesi - Form elemanlarının bulunduğu ana alan *@
             <div class="card-body">
+                @* Form etiketi - POST metoduyla CreateTrainer action'ına veri gönderir *@
                 <form asp-action="CreateTrainer" method="post">
+                    @* Tüm validasyon hatalarını göster - Kırmızı renkte *@
                     <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
+                    @* === Ad ve Soyad Alanları - İki sütunlu düzen === *@
                     <div class="row">
+                        @* Sol sütun - Ad alanı *@
                         <div class="col-md-6 mb-3">
+                            @* Label - Model property'sine göre otomatik etiket *@
                             <label asp-for="FirstName" class="form-label"></label>
+                            @* Input alanı - Ad girişi için *@
                             <input asp-for="FirstName" class="form-control" />
+                            @* Validasyon hatası mesajı gösterimi *@
                             <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
+                        
+                        @* Sağ sütun - Soyad alanı *@
                         <div class="col-md-6 mb-3">
                             <label asp-for="LastName" class="form-label"></label>
                             <input asp-for="LastName" class="form-control" />
@@ -28,26 +60,41 @@
                         </div>
                     </div>
 
+                    @* === E-posta Alanı === *@
+                    @* Antrenörün iletişim e-posta adresi *@
                     <div class="mb-3">
                         <label asp-for="Email" class="form-label"></label>
+                        @* Email tipinde input - Otomatik format kontrolü *@
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
+                    @* === Telefon Numarası Alanı === *@
+                    @* Antrenörün iletişim telefon numarası *@
                     <div class="mb-3">
                         <label asp-for="PhoneNumber" class="form-label"></label>
                         <input asp-for="PhoneNumber" class="form-control" />
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
 
+                    @* === Salon Seçimi === *@
+                    @* Antrenörün hangi fitness salonunda çalışacağını belirler *@
                     <div class="mb-3">
+                        @* Manuel etiket - "Salon" olarak göster *@
                         <label asp-for="FitnessCenterId" class="form-label">Salon</label>
+                        
+                        @* Dropdown - Salon listesi *@
                         <select asp-for="FitnessCenterId" class="form-select">
+                            @* Varsayılan boş seçenek *@
                             <option value="">-- Salon Seçin --</option>
+                            
+                            @* Salon listesi null kontrolü - Hata önleme *@
                             @if (fitnessCenters != null)
                             {
+                                @* Her salon için bir option oluştur *@
                                 foreach (var center in fitnessCenters)
                                 {
+                                    @* Salonun ID'si value, adı gösterilen metin *@
                                     <option value="@center.Id">@center.Name</option>
                                 }
                             }
@@ -55,34 +102,54 @@
                         <span asp-validation-for="FitnessCenterId" class="text-danger"></span>
                     </div>
 
+                    @* === Uzmanlık Alanı === *@
+                    @* Antrenörün hangi alanlarda uzman olduğunu belirtir *@
                     <div class="mb-3">
                         <label asp-for="Specialization" class="form-label"></label>
+                        @* Placeholder - Kullanıcıya örnek gösterir *@
                         <input asp-for="Specialization" class="form-control" placeholder="Örn: Fitness, Yoga, Pilates" />
                         <span asp-validation-for="Specialization" class="text-danger"></span>
                     </div>
 
+                    @* === Deneyim Yılı === *@
+                    @* Antrenörün kaç yıldır bu işi yaptığını belirtir *@
                     <div class="mb-3">
                         <label asp-for="ExperienceYears" class="form-label"></label>
+                        @* Number tipinde input - Sadece sayı girişi, minimum 0 *@
                         <input asp-for="ExperienceYears" class="form-control" type="number" min="0" />
                         <span asp-validation-for="ExperienceYears" class="text-danger"></span>
                     </div>
 
+                    @* === Biyografi / Hakkında === *@
+                    @* Antrenör hakkında detaylı bilgi, özgeçmiş *@
                     <div class="mb-3">
                         <label asp-for="Bio" class="form-label"></label>
+                        @* Çok satırlı metin alanı (textarea) - 3 satır yüksekliğinde *@
                         <textarea asp-for="Bio" class="form-control" rows="3"></textarea>
                         <span asp-validation-for="Bio" class="text-danger"></span>
                     </div>
 
+                    @* === Müsaitlik Durumu === *@
+                    @* Antrenörün aktif olarak randevu alıp almadığını belirler *@
                     <div class="mb-3 form-check">
+                        @* Checkbox input - İşaretli/işaretsiz durum *@
                         <input asp-for="IsAvailable" class="form-check-input" />
+                        @* Checkbox etiketi *@
                         <label asp-for="IsAvailable" class="form-check-label"></label>
                     </div>
 
+                    @* === Form Aksiyon Butonları === *@
+                    @* Kaydetme ve geri dönme işlemleri için butonlar *@
                     <div class="d-grid gap-2">
+                        @* Submit butonu - Formu sunucuya gönderir *@
                         <button type="submit" class="btn btn-success btn-lg">
+                            @* Kaydet ikonu *@
                             <i class="fas fa-save"></i> Kaydet
                         </button>
+                        
+                        @* Geri dönüş butonu - Antrenör listesi sayfasına yönlendirir *@
                         <a asp-action="Trainers" class="btn btn-secondary">
+                            @* Geri ok ikonu *@
                             <i class="fas fa-arrow-left"></i> Geri Dön
                         </a>
                     </div>
@@ -92,6 +159,9 @@
     </div>
 </div>
 
+@* === JavaScript Bölümü === *@
+@* Sayfanın en altında render edilir *@
 @section Scripts {
+    @* jQuery Validation scriptlerini ekle - Form doğrulama için gerekli *@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

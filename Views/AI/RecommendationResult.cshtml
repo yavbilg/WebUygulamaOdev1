@@ -1,47 +1,84 @@
+@*
+  Sayfa: AI öneri sonuç ekranı
+  
+  Model: AIRecommendation - AI tarafından oluşturulan fitness ve beslenme planı
+  
+  Bu sayfa kullanıcının girdiği bilgilere göre AI tarafından hazırlanan
+  kişiselleştirilmiş egzersiz programını, beslenme planını ve genel değerlendirmeyi gösterir.
+*@
+
+@* Model bağlama - AIRecommendation model sınıfını sayfaya bağla *@
 @model FitnessCenterApp.Models.AIRecommendation
 
 @{
+    // Sayfa başlığını ayarla
     ViewData["Title"] = "AI Öneri Sonucu";
 }
 
+@* Bootstrap grid sistemi - Sayfayı ortala *@
 <div class="row justify-content-center">
+    @* Geniş alan - 10 kolon genişliğinde (içerik fazla olduğu için) *@
     <div class="col-md-10">
+        @* Ana sonuç kartı *@
         <div class="card shadow">
+            @* Kart başlığı - Yeşil arka plan, başarı mesajı *@
             <div class="card-header bg-success text-white">
-                <h2 class="mb-0"><i class="fas fa-check-circle"></i> Kişiselleştirilmiş Fitness Planınız Hazır!</h2>
+                <h2 class="mb-0">
+                    @* Onay işareti ikonu - Başarılı işlem *@
+                    <i class="fas fa-check-circle"></i> Kişiselleştirilmiş Fitness Planınız Hazır!
+                </h2>
             </div>
+            
+            @* Kart gövdesi - Tüm sonuç içeriği *@
             <div class="card-body">
+                @* === Profil Fotoğrafı Gösterimi (Varsa) === *@
+                @* Kullanıcı fotoğraf yüklediyse burada gösterilir *@
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
                     <div class="text-center mb-4">
+                        @* Yüklenen fotoğraf - Thumbnail (küçültülmüş) şekilde *@
                         <img src="@Model.ImageUrl" alt="Profil" class="img-thumbnail" style="max-width: 300px;" />
                     </div>
                 }
 
+                @* === Kullanıcı Bilgileri Özeti === *@
+                @* Girilen boy, kilo, yaş ve hedef bilgilerini gösterir *@
                 <div class="row mb-4">
                     <div class="col-md-12">
+                        @* Açık gri arka planlı bilgi kartı *@
                         <div class="card bg-light">
                             <div class="card-body">
-                                <h4><i class="fas fa-user"></i> Bilgileriniz</h4>
+                                <h4>
+                                    @* Kullanıcı ikonu *@
+                                    <i class="fas fa-user"></i> Bilgileriniz
+                                </h4>
+                                @* Bilgileri 4 sütuna böl *@
                                 <div class="row">
+                                    @* Boy bilgisi - Varsa göster *@
                                     @if (Model.Height.HasValue)
                                     {
                                         <div class="col-md-3">
                                             <strong>Boy:</strong> @Model.Height cm
                                         </div>
                                     }
+                                    
+                                    @* Kilo bilgisi - Varsa göster *@
                                     @if (Model.Weight.HasValue)
                                     {
                                         <div class="col-md-3">
                                             <strong>Kilo:</strong> @Model.Weight kg
                                         </div>
                                     }
+                                    
+                                    @* Yaş bilgisi - Varsa göster *@
                                     @if (Model.Age.HasValue)
                                     {
                                         <div class="col-md-3">
                                             <strong>Yaş:</strong> @Model.Age
                                         </div>
                                     }
+                                    
+                                    @* Hedef bilgisi - Varsa göster *@
                                     @if (!string.IsNullOrEmpty(Model.Goal))
                                     {
                                         <div class="col-md-3">
@@ -54,60 +91,96 @@
                     </div>
                 </div>
 
+                @* === Genel Değerlendirme === *@
+                @* AI'nın kullanıcı hakkındaki genel analizi ve önerileri *@
                 @if (!string.IsNullOrEmpty(Model.Recommendation))
                 {
                     <div class="card mb-4">
+                        @* Mavi başlık - Genel bilgi *@
                         <div class="card-header bg-primary text-white">
-                            <h4 class="mb-0"><i class="fas fa-chart-line"></i> Genel Değerlendirme</h4>
+                            <h4 class="mb-0">
+                                @* Grafik/analiz ikonu *@
+                                <i class="fas fa-chart-line"></i> Genel Değerlendirme
+                            </h4>
                         </div>
                         <div class="card-body">
+                            @* Pre tag - Yazı formatını korur (satır sonları, boşluklar) *@
+                            @* white-space: pre-wrap - Uzun satırları kaydırır *@
+                            @* font-family: inherit - Varsayılan monospace yerine normal font *@
                             <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.Recommendation</pre>
                         </div>
                     </div>
                 }
 
+                @* === Egzersiz Programı === *@
+                @* AI tarafından oluşturulan detaylı egzersiz planı *@
                 @if (!string.IsNullOrEmpty(Model.ExercisePlan))
                 {
                     <div class="card mb-4">
+                        @* Yeşil başlık - Fitness/egzersiz vurgusu *@
                         <div class="card-header bg-success text-white">
-                            <h4 class="mb-0"><i class="fas fa-dumbbell"></i> Egzersiz Programınız</h4>
+                            <h4 class="mb-0">
+                                @* Dambıl ikonu - Egzersiz temsili *@
+                                <i class="fas fa-dumbbell"></i> Egzersiz Programınız
+                            </h4>
                         </div>
                         <div class="card-body">
+                            @* Egzersiz planı metni - Format korunarak gösterilir *@
                             <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.ExercisePlan</pre>
                         </div>
                     </div>
                 }
 
+                @* === Beslenme Planı === *@
+                @* AI tarafından oluşturulan detaylı diyet önerileri *@
                 @if (!string.IsNullOrEmpty(Model.DietPlan))
                 {
                     <div class="card mb-4">
+                        @* Sarı başlık - Beslenme/diyet vurgusu *@
                         <div class="card-header bg-warning text-dark">
-                            <h4 class="mb-0"><i class="fas fa-utensils"></i> Beslenme Planınız</h4>
+                            <h4 class="mb-0">
+                                @* Çatal-bıçak ikonu - Yemek/beslenme temsili *@
+                                <i class="fas fa-utensils"></i> Beslenme Planınız
+                            </h4>
                         </div>
                         <div class="card-body">
+                            @* Beslenme planı metni - Format korunarak gösterilir *@
                             <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;">@Model.DietPlan</pre>
                         </div>
                     </div>
                 }
 
+                @* === Bilgilendirme Notu === *@
+                @* Plan oluşturma tarihi ve ek bilgi *@
                 <div class="alert alert-info">
+                    @* Bilgi ikonu *@
                     <i class="fas fa-info-circle"></i> 
                     <strong>Not:</strong> Bu plan @Model.CreatedDate.ToString("dd MMMM yyyy HH:mm") tarihinde oluşturulmuştur.
                     Daha detaylı bilgi için antrenörlerimizle görüşebilirsiniz.
                 </div>
 
+                @* === Aksiyon Butonları === *@
                 <div class="d-grid gap-2">
+                    @* Randevu alma butonu - Kullanıcıyı randevu sayfasına yönlendirir *@
                     <a asp-controller="Appointments" asp-action="Create" class="btn btn-primary btn-lg">
+                        @* Takvim ekleme ikonu *@
                         <i class="fas fa-calendar-plus"></i> Antrenörle Randevu Al
                     </a>
+                    
+                    @* Alt butonlar - Yan yana iki kolon *@
                     <div class="row">
+                        @* Sol buton - Yeni öneri almak için *@
                         <div class="col-md-6">
                             <a asp-action="Recommendation" class="btn btn-outline-secondary w-100">
+                                @* Yenileme ikonu *@
                                 <i class="fas fa-redo"></i> Yeni Öneri Al
                             </a>
                         </div>
+                        
+                        @* Sağ buton - Geçmiş önerileri görüntülemek için *@
                         <div class="col-md-6">
                             <a asp-action="History" class="btn btn-outline-info w-100">
+                                @* Tarih/geçmiş ikonu *@
                                 <i class="fas fa-history"></i> Geçmiş Öneriler
                             </a>
                         </div>

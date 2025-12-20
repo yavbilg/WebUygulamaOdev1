@@ -4,11 +4,11 @@ namespace FitnessCenterApp.ViewModels
 {
     public class AppointmentCreateViewModel
     {
-        [Required(ErrorMessage = "Antrenör seçimi zorunludur")]
-        [Display(Name = "Antrenör")]
+        [Required(ErrorMessage = "AntrenÃ¶r seÃ§imi zorunludur")]
+        [Display(Name = "AntrenÃ¶r")]
         public int TrainerId { get; set; }
 
-        [Required(ErrorMessage = "Hizmet seçimi zorunludur")]
+        [Required(ErrorMessage = "Hizmet seÃ§imi zorunludur")]
         [Display(Name = "Hizmet")]
         public int ServiceId { get; set; }
 
@@ -17,7 +17,7 @@ namespace FitnessCenterApp.ViewModels
         [Display(Name = "Tarih")]
         public DateTime AppointmentDate { get; set; } = DateTime.Today;
 
-        [Required(ErrorMessage = "Saat seçimi zorunludur")]
+        [Required(ErrorMessage = "Saat seÃ§imi zorunludur")]
         [Display(Name = "Saat")]
         public TimeSpan StartTime { get; set; }
 

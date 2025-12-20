@@ -9,13 +9,13 @@ namespace FitnessCenterApp.Models
         // Foreign Keys
         public int TrainerId { get; set; }
         
-        [Required(ErrorMessage = "G�n se�imi zorunludur")]
+        [Required(ErrorMessage = "Gün seçimi zorunludur")]
         public DayOfWeek DayOfWeek { get; set; }
         
-        [Required(ErrorMessage = "Ba?lang?� saati zorunludur")]
+        [Required(ErrorMessage = "Başlangıç saati zorunludur")]
         public TimeSpan StartTime { get; set; }
         
-        [Required(ErrorMessage = "Biti? saati zorunludur")]
+        [Required(ErrorMessage = "Bitiş saati zorunludur")]
         public TimeSpan EndTime { get; set; }
         
         public bool IsAvailable { get; set; } = true;

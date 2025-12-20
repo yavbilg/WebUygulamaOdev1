@@ -9,17 +9,17 @@ namespace FitnessCenterApp.Models
         // Foreign Keys
         public string UserId { get; set; } = string.Empty;
         
-        [Required(ErrorMessage = "Plan ad? zorunludur")]
+        [Required(ErrorMessage = "Plan adı zorunludur")]
         [StringLength(100)]
         public string PlanName { get; set; } = string.Empty;
         
-        [Required(ErrorMessage = "Ba?lang?� tarihi zorunludur")]
+        [Required(ErrorMessage = "Başlangıç tarihi zorunludur")]
         public DateTime StartDate { get; set; }
         
-        [Required(ErrorMessage = "Biti? tarihi zorunludur")]
+        [Required(ErrorMessage = "Bitiş tarihi zorunludur")]
         public DateTime EndDate { get; set; }
         
-        [Required(ErrorMessage = "�cret zorunludur")]
+        [Required(ErrorMessage = "Ücret zorunludur")]
         [Range(0, 50000)]
         public decimal Price { get; set; }
         
