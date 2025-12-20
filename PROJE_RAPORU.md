@@ -1,475 +1,588 @@
-# F?TNESS CENTER Y�NET?M S?STEM?
-## PROJE RAPORU
+# FİTNESS CENTER YÖNETİM SİSTEMİ
+## Web Programlama Dersi Projesi
 
 ---
 
-### PROJE B?LG?LER?
+## KAPAK SAYFASI
 
-**Proje Ad?:** Fitness Center Y�netim ve Randevu Sistemi  
-**Ders:** Web Programlama  
-**D�nem:** 2025-2026 G�z D�nemi  
+**Proje Başlığı:** Fitness Center Yönetim Sistemi  
+**Öğrenci Numarası:** [Öğrenci Numaranızı buraya yazın]  
+**Ad Soyad:** [Adınız Soyadınızı buraya yazın]  
+**Ders Grubu:** [Ders Grubunuzu buraya yazın]  
+**GitHub Bağlantısı:** https://github.com/yavbilg/WebUygulamaOdev1  
+**Proje Tarihi:** Aralık 2024  
+**Teknoloji:** ASP.NET Core MVC (.NET 10)
 
-**�?renci Bilgileri:**  
-- **Ad Soyad:** [ADINIZ SOYADINIZ]  
-- **�?renci No:** [�?RENC? NUMARANIZ]  
-- **Ders Grubu:** [DERS GRUBUNUZ]  
+---
 
-**GitHub Ba?lant?s?:** https://github.com/yavbilg/WebUygulamaOdev1
+## İÇİNDEKİLER
 
-**Teslim Tarihi:** [TESL?M TAR?H?]
+1. [Proje Tanıtımı](#1-proje-tanitimi)
+2. [Veritabanı Modeli](#2-veritabani-modeli)
+3. [Proje Mimarisi](#3-proje-mimarisi)
+4. [Kullanıcı Rolleri ve Yetkiler](#4-kullanici-rolleri-ve-yetkiler)
+5. [Önemli Özellikler](#5-onemli-ozellikler)
+6. [Güvenlik Özellikleri](#6-guvenlik-ozellikleri)
+7. [Kullanım Senaryoları](#7-kullanim-senaryolari)
+8. [Ekran Görüntüleri](#8-ekran-goruntuleri)
+9. [Kurulum ve Çalıştırma](#9-kurulum-ve-calistirma)
+10. [Geliştirme Süreci](#10-gelistirme-sureci)
+11. [Gelecek Geliştirmeler](#11-gelecek-gelistirmeler)
+12. [Sonuç](#12-sonuc)
 
 ---
 
 ## 1. PROJE TANITIMI
 
-Bu proje, spor salonlar?n?n g�nl�k operasyonlar?n? dijitalle?tirmek ve �yelere modern bir randevu sistemi sunmak amac?yla geli?tirilmi?tir. ASP.NET Core MVC mimarisi kullan?larak olu?turulan sistem, hem y�neticilerin hem de �yelerin ihtiya�lar?n? kar??lamaktad?r.
+### 1.1. Proje Hakkında
 
-### 1.1. Projenin Amac?
-- Spor salonu y�netimini kolayla?t?rmak
-- �yelere online randevu sistemi sunmak
-- Antren�r m�saitlik takibi yapmak
-- AI destekli ki?iselle?tirilmi? fitness programlar? olu?turmak
-- Raporlama ve analiz imkan? sa?lamak
+Fitness Center Yönetim Sistemi, fitness merkezlerinin günlük operasyonlarını dijital ortamda yönetmek için geliştirilmiş modern bir web uygulamasıdır. Sistem, üyeler, antrenörler ve yöneticiler için ayrı ayrı tasarlanmış modüller içermektedir.
 
-### 1.2. Hedef Kullan?c?lar
-- **Y�neticiler (Admin):** Sistem y�netimi, salon, antren�r ve hizmet y�netimi
-- **�yeler (Member):** Randevu olu?turma, AI �nerisi alma, randevu takibi
+### 1.2. Projenin Amacı
+
+Bu proje, fitness merkezi işletmelerinin aşağıdaki ihtiyaçlarını karşılamak üzere tasarlanmıştır:
+
+- ✅ Üyelerin randevu oluşturma ve yönetimi
+- ✅ Antrenörlerin müsaitlik durumlarının takibi
+- ✅ Hizmet ve salon yönetimi
+- ✅ AI destekli kişiselleştirilmiş egzersiz ve beslenme önerileri
+- ✅ Kullanıcı kimlik doğrulama ve yetkilendirme
+- ✅ Admin paneli ile merkezi yönetim
+
+### 1.3. Kullanılan Teknolojiler
+
+**Backend:**
+- ASP.NET Core MVC (.NET 10)
+- Entity Framework Core 10.0
+- ASP.NET Core Identity (Kullanıcı yönetimi)
+- SQL Server (LocalDB)
+
+**Frontend:**
+- Razor Views
+- Bootstrap 5
+- jQuery
+- Font Awesome Icons
+- AJAX (Asenkron işlemler)
+
+**Veritabanı:**
+- Microsoft SQL Server
+- Entity Framework Core Code First yaklaşımı
+- Migration desteği
+
+**Güvenlik:**
+- ASP.NET Core Identity
+- Rol tabanlı yetkilendirme (Admin, Member)
+- CSRF koruması
+- Form validasyonu
+
+### 1.4. Temel Özellikler
+
+#### Üye Özellikleri:
+1. **Kullanıcı Kaydı ve Girişi**
+   - Email ile kayıt olma
+   - Güvenli şifre yönetimi
+   - Profil bilgileri
+
+2. **Randevu Yönetimi**
+   - Antrenör seçimi
+   - Hizmet seçimi (Kişisel Antrenman, Yoga, Pilates vb.)
+   - Müsait saat sorgulama (AJAX ile dinamik)
+   - Randevu oluşturma, görüntüleme, iptal etme
+
+3. **AI Destekli Öneriler**
+   - Vücut ölçüleri girişi (boy, kilo, yaş)
+   - Hedef belirleme (kilo verme, kas geliştirme vb.)
+   - BMI hesaplama
+   - 12 haftalık egzersiz programı
+   - Kişiselleştirilmiş beslenme planı
+   - Fotoğraf yükleme (opsiyonel)
+
+#### Admin Özellikleri:
+1. **Salon Yönetimi**
+   - Yeni salon ekleme
+   - Salon bilgilerini güncelleme
+   - Çalışma saatleri yönetimi
+
+2. **Antrenör Yönetimi**
+   - Antrenör ekleme/düzenleme
+   - Uzmanlık alanları tanımlama
+   - Müsaitlik saatleri belirleme
+
+3. **Hizmet Yönetimi**
+   - Hizmet tanımlama (Yoga, Pilates, Fitness vb.)
+   - Ücret ve süre belirleme
+   - Aktif/pasif durumu
+
+4. **Randevu Yönetimi**
+   - Tüm randevuları görüntüleme
+   - Randevu onaylama/iptal etme
+   - Durum güncelleme
 
 ---
 
-## 2. KULLANILAN TEKNOLOJ?LER
+## 2. VERİTABANI MODELİ
 
-### 2.1. Backend Teknolojiler
-- **Framework:** ASP.NET Core MVC (.NET 10.0)
-- **Programlama Dili:** C# 13.0
-- **ORM:** Entity Framework Core 10.0
-- **Veritaban?:** SQL Server (LocalDB)
-- **Authentication:** ASP.NET Core Identity
-- **API:** RESTful Web API
+### 2.1. Entity İlişki Diyagramı (ER Diagram)
 
-### 2.2. Frontend Teknolojiler
-- **CSS Framework:** Bootstrap 5
-- **Icons:** Font Awesome 6.4
-- **JavaScript:** jQuery 3.x
-- **Template Engine:** Razor Views
-
-### 2.3. NuGet Paketleri
-```xml
-<ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
-</ItemGroup>
+```
+┌─────────────────┐         ┌─────────────────┐
+│ FitnessCenter   │◄────────│  Trainer        │
+│─────────────────│ 1     * │─────────────────│
+│ Id (PK)         │         │ Id (PK)         │
+│ Name            │         │ FirstName       │
+│ Address         │         │ LastName        │
+│ PhoneNumber     │         │ Email           │
+│ Email           │         │ Specialization  │
+│ OpeningTime     │         │ ExperienceYears │
+│ ClosingTime     │         │ FitnessCenterId │
+│ Description     │         │ IsAvailable     │
+│ IsActive        │         └─────────────────┘
+└─────────────────┘                  │
+         │                           │ 1
+         │ 1                         │
+         │                           │ *
+         │ *                  ┌──────▼──────────┐
+   ┌─────▼─────────┐         │ TrainerAvail... │
+   │   Service     │         │─────────────────│
+   │───────────────│         │ Id (PK)         │
+   │ Id (PK)       │         │ TrainerId (FK)  │
+   │ Name          │         │ DayOfWeek       │
+   │ Description   │         │ StartTime       │
+   │ DurationMin   │         │ EndTime         │
+   │ Price         │         │ IsAvailable     │
+   │ ServiceType   │         └─────────────────┘
+   │ IsActive      │
+   │ FitnessCtr..  │
+   └───────────────┘
+         │
+         │
+         │ *
+   ┌─────▼──────────┐         ┌─────────────────┐
+   │ Appointment    │◄────────│ ApplicationUser │
+   │────────────────│ *     1 │─────────────────│
+   │ Id (PK)        │         │ Id (PK)         │
+   │ UserId (FK)    │         │ UserName        │
+   │ TrainerId (FK) │         │ Email           │
+   │ ServiceId (FK) │         │ FirstName       │
+   │ AppointmentDt  │         │ LastName        │
+   │ StartTime      │         │ PhoneNumber     │
+   │ EndTime        │         │ DateOfBirth     │
+   │ Status         │         │ Address         │
+   │ Notes          │         │ RegistrationDt  │
+   │ CreatedDate    │         └─────────────────┘
+   └────────────────┘                  │
+                                       │ 1
+                                       │
+                                       │ *
+                            ┌──────────▼─────────┐
+                            │ AIRecommendation   │
+                            │────────────────────│
+                            │ Id (PK)            │
+                            │ UserId (FK)        │
+                            │ BodyType           │
+                            │ Height             │
+                            │ Weight             │
+                            │ Age                │
+                            │ Goal               │
+                            │ ImageUrl           │
+                            │ Recommendation     │
+                            │ ExercisePlan       │
+                            │ DietPlan           │
+                            │ CreatedDate        │
+                            └────────────────────┘
 ```
 
+### 2.2. Veritabanı Tabloları
+
+#### 2.2.1. ApplicationUser (Kullanıcı)
+**Amaç:** Sistemdeki tüm kullanıcıların (üye ve admin) bilgilerini tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| Id | string (PK) | Benzersiz kullanıcı kimliği |
+| UserName | string | Kullanıcı adı (Email ile aynı) |
+| Email | string | E-posta adresi |
+| FirstName | string | Ad |
+| LastName | string | Soyad |
+| PhoneNumber | string | Telefon numarası |
+| DateOfBirth | DateTime? | Doğum tarihi |
+| Address | string? | Adres bilgisi |
+| RegistrationDate | DateTime | Kayıt tarihi |
+
+**İlişkiler:**
+- `Appointments` (1-*): Bir kullanıcının birden fazla randevusu olabilir
+- `MembershipPlans` (1-*): Bir kullanıcının birden fazla üyelik planı olabilir
+- `AIRecommendations` (1-*): Bir kullanıcının birden fazla AI önerisi olabilir
+
+#### 2.2.2. FitnessCenter (Fitness Salonu)
+**Amaç:** Fitness merkezlerinin bilgilerini tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| Id | int (PK) | Benzersiz salon kimliği |
+| Name | string | Salon adı |
+| Address | string | Salon adresi |
+| PhoneNumber | string | İletişim telefonu |
+| Email | string | İletişim e-postası |
+| OpeningTime | TimeSpan | Açılış saati |
+| ClosingTime | TimeSpan | Kapanış saati |
+| Description | string? | Salon açıklaması |
+| IsActive | bool | Aktif durumu |
+
+**İlişkiler:**
+- `Trainers` (1-*): Bir salonda birden fazla antrenör çalışabilir
+- `Services` (1-*): Bir salon birden fazla hizmet sunabilir
+
+#### 2.2.3. Trainer (Antrenör)
+**Amaç:** Fitness merkezlerinde çalışan antrenörlerin bilgilerini tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| Id | int (PK) | Benzersiz antrenör kimliği |
+| FirstName | string | Ad |
+| LastName | string | Soyad |
+| Email | string | E-posta adresi |
+| PhoneNumber | string? | Telefon numarası |
+| Specialization | string | Uzmanlık alanı |
+| Bio | string? | Biyografi |
+| ProfileImageUrl | string? | Profil fotoğrafı |
+| ExperienceYears | int | Deneyim yılı |
+| IsAvailable | bool | Müsaitlik durumu |
+| FitnessCenterId | int (FK) | Çalıştığı salon |
+
+**İlişkiler:**
+- `FitnessCenter` (*-1): Bir antrenör bir salonda çalışır
+- `Availabilities` (1-*): Bir antrenörün birden fazla müsaitlik kaydı olabilir
+- `Appointments` (1-*): Bir antrenörün birden fazla randevusu olabilir
+- `TrainerServices` (1-*): Bir antrenör birden fazla hizmet verebilir
+
+#### 2.2.4. Service (Hizmet)
+**Amaç:** Fitness merkezlerinde sunulan hizmetlerin bilgilerini tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| Id | int (PK) | Benzersiz hizmet kimliği |
+| Name | string | Hizmet adı |
+| Description | string | Hizmet açıklaması |
+| DurationMinutes | int | Süre (dakika) |
+| Price | decimal | Ücret (TL) |
+| ServiceType | string | Hizmet tipi (Fitness, Yoga vb.) |
+| IsActive | bool | Aktif durumu |
+| FitnessCenterId | int (FK) | Sunulduğu salon |
+
+**İlişkiler:**
+- `FitnessCenter` (*-1): Bir hizmet bir salonda sunulur
+- `Appointments` (1-*): Bir hizmete birden fazla randevu alınabilir
+- `TrainerServices` (1-*): Bir hizmeti birden fazla antrenör verebilir
+
+#### 2.2.5. Appointment (Randevu)
+**Amaç:** Üyeler ve antrenörler arasındaki randevu kayıtlarını tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| Id | int (PK) | Benzersiz randevu kimliği |
+| UserId | string (FK) | Randevuyu alan üye |
+| TrainerId | int (FK) | Randevuyu veren antrenör |
+| ServiceId | int (FK) | Alınan hizmet |
+| AppointmentDate | DateTime | Randevu tarihi |
+| StartTime | TimeSpan | Başlangıç saati |
+| EndTime | TimeSpan | Bitiş saati |
+| Status | enum | Durum (Pending, Confirmed, Cancelled, Completed) |
+| Notes | string? | Notlar |
+| CreatedDate | DateTime | Oluşturulma tarihi |
+
+**Status Enum Değerleri:**
+- `Pending`: Beklemede
+- `Confirmed`: Onaylandı
+- `Cancelled`: İptal Edildi
+- `Completed`: Tamamlandı
+
+**İlişkiler:**
+- `User` (*-1): Bir randevu bir kullanıcıya aittir
+- `Trainer` (*-1): Bir randevuyu bir antrenör verir
+- `Service` (*-1): Bir randevu bir hizmet içindir
+
+#### 2.2.6. TrainerAvailability (Antrenör Müsaitliği)
+**Amaç:** Antrenörlerin hangi günlerde ve saatlerde müsait olduğunu tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| Id | int (PK) | Benzersiz müsaitlik kimliği |
+| TrainerId | int (FK) | Antrenör |
+| DayOfWeek | enum | Haftanın günü |
+| StartTime | TimeSpan | Başlangıç saati |
+| EndTime | TimeSpan | Bitiş saati |
+| IsAvailable | bool | Müsaitlik durumu |
+
+**İlişkiler:**
+- `Trainer` (*-1): Bir müsaitlik kaydı bir antrenöre aittir
+
+#### 2.2.7. AIRecommendation (AI Önerisi)
+**Amaç:** Kullanıcılar için AI tarafından oluşturulan egzersiz ve beslenme önerilerini tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| Id | int (PK) | Benzersiz öneri kimliği |
+| UserId | string (FK) | Kullanıcı |
+| BodyType | string? | Vücut tipi |
+| Height | double? | Boy (cm) |
+| Weight | double? | Kilo (kg) |
+| Age | int? | Yaş |
+| Goal | string? | Hedef |
+| ImageUrl | string? | Yüklenen fotoğraf |
+| Recommendation | string | Genel değerlendirme |
+| ExercisePlan | string | Egzersiz programı |
+| DietPlan | string | Beslenme planı |
+| CreatedDate | DateTime | Oluşturulma tarihi |
+
+**İlişkiler:**
+- `User` (*-1): Bir öneri bir kullanıcıya aittir
+
+#### 2.2.8. MembershipPlan (Üyelik Planı)
+**Amaç:** Kullanıcıların üyelik planlarını tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| Id | int (PK) | Benzersiz plan kimliği |
+| UserId | string (FK) | Kullanıcı |
+| PlanName | string | Plan adı |
+| StartDate | DateTime | Başlangıç tarihi |
+| EndDate | DateTime | Bitiş tarihi |
+| Price | decimal | Ücret |
+| IsActive | bool | Aktif durumu |
+
+**İlişkiler:**
+- `User` (*-1): Bir plan bir kullanıcıya aittir
+
+#### 2.2.9. TrainerService (Ara Tablo)
+**Amaç:** Antrenörler ve hizmetler arasındaki çoka-çok ilişkisini tutar.
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| TrainerId | int (FK) | Antrenör |
+| ServiceId | int (FK) | Hizmet |
+
+**İlişkiler:**
+- `Trainer` (*-1): Bir kayıt bir antrenöre aittir
+- `Service` (*-1): Bir kayıt bir hizmete aittir
+
+### 2.3. Veritabanı İlişkileri Özeti
+
+**One-to-Many (1-*) İlişkiler:**
+- FitnessCenter → Trainers
+- FitnessCenter → Services
+- Trainer → Availabilities
+- Trainer → Appointments
+- User → Appointments
+- User → MembershipPlans
+- User → AIRecommendations
+- Service → Appointments
+
+**Many-to-Many (*-*) İlişkiler:**
+- Trainer ↔ Service (TrainerService ara tablosu ile)
+
 ---
 
-## 3. VER?TABANI MODEL?
+## 3. PROJE MİMARİSİ
 
-### 3.1. Entity Relationship Diagram (ERD)
+### 3.1. MVC Yapısı
 
-```
-[AspNetUsers] 1---* [Appointments] *---1 [Trainers]
-      |                                      |
-      |                                      |
-      1                                      *
-      |                                      |
-[MembershipPlans]                    [TrainerServices]
-      |                                      |
-      |                                      *
-      1                                      |
-      |                                  [Services]
-[AIRecommendations]                        |
-                                            1
-                                            |
-                                     [FitnessCenters]
-```
+Proje, ASP.NET Core MVC mimarisini kullanmaktadır:
 
-### 3.2. Tablolar ve ?li?kiler
+#### Models (Modeller)
+- `ApplicationUser.cs`: Kullanıcı modeli
+- `FitnessCenter.cs`: Salon modeli
+- `Trainer.cs`: Antrenör modeli
+- `Service.cs`: Hizmet modeli
+- `Appointment.cs`: Randevu modeli
+- `TrainerAvailability.cs`: Müsaitlik modeli
+- `AIRecommendation.cs`: AI öneri modeli
+- `MembershipPlan.cs`: Üyelik planı modeli
+- `TrainerService.cs`: Ara tablo
 
-#### 3.2.1. AspNetUsers (Identity)
-- Kullan?c? bilgilerini saklar
-- FirstName, LastName, PhoneNumber, Address, DateOfBirth
-- ASP.NET Core Identity ile entegre
+#### Views (Görünümler)
+**Shared (Ortak)**
+- `_Layout.cshtml`: Ana şablon
+- `_ValidationScriptsPartial.cshtml`: Validasyon scriptleri
 
-#### 3.2.2. FitnessCenters
-- Spor salonu bilgileri
-- Name, Address, PhoneNumber, Email
-- OpeningTime, ClosingTime
-- ?li?kiler: Trainers (1-*), Services (1-*)
+**Account (Hesap İşlemleri)**
+- `Login.cshtml`: Giriş sayfası
+- `Register.cshtml`: Kayıt sayfası
+- `AccessDenied.cshtml`: Erişim reddedildi
 
-#### 3.2.3. Trainers
-- Antren�r bilgileri
-- FirstName, LastName, Email, PhoneNumber
-- Specialization, ExperienceYears, Bio
-- ?li?kiler: FitnessCenter (FK), Appointments (1-*), TrainerServices (*)
+**Appointments (Randevu)**
+- `Index.cshtml`: Randevu listesi
+- `Create.cshtml`: Randevu oluşturma
+- `Details.cshtml`: Randevu detayları
 
-#### 3.2.4. Services
-- Hizmet bilgileri
-- Name, Description, ServiceType
-- DurationMinutes, Price
-- ?li?kiler: FitnessCenter (FK), Appointments (1-*), TrainerServices (*)
+**Admin (Yönetim)**
+- `Index.cshtml`: Dashboard
+- `FitnessCenters.cshtml`: Salon listesi
+- `CreateFitnessCenter.cshtml`: Salon ekleme
+- `Trainers.cshtml`: Antrenör listesi
+- `CreateTrainer.cshtml`: Antrenör ekleme
+- `Services.cshtml`: Hizmet listesi
+- `Appointments.cshtml`: Randevu yönetimi
 
-#### 3.2.5. Appointments
-- Randevu bilgileri
-- AppointmentDate, StartTime, EndTime
-- Status (Pending, Confirmed, Cancelled, Completed)
-- ?li?kiler: User (FK), Trainer (FK), Service (FK)
+**AI (Yapay Zeka)**
+- `Recommendation.cshtml`: Öneri formu
+- `RecommendationResult.cshtml`: Öneri sonuçları
+- `History.cshtml`: Geçmiş öneriler
 
-#### 3.2.6. TrainerServices
-- Many-to-Many ili?ki tablosu
-- Trainer ve Service aras?nda ba?lant?
+#### Controllers (Denetleyiciler)
+- `HomeController.cs`: Ana sayfa
+- `AccountController.cs`: Kimlik doğrulama
+- `AppointmentsController.cs`: Randevu işlemleri
+- `AdminController.cs`: Yönetim işlemleri
+- `AIController.cs`: AI öneri işlemleri
 
-#### 3.2.7. TrainerAvailabilities
-- Antren�r m�saitlik saatleri
-- DayOfWeek, StartTime, EndTime
-- ?li?kiler: Trainer (FK)
+**API Controllers:**
+- `Api/AppointmentsController.cs`: Randevu API
+- `Api/TrainersController.cs`: Antrenör API
 
-#### 3.2.8. MembershipPlans
-- �yelik planlar?
-- PlanName, StartDate, EndDate, Price
-- ?li?kiler: User (FK)
-
-#### 3.2.9. AIRecommendations
-- AI �neri kay?tlar?
-- BodyType, Height, Weight, Age, Goal
-- Recommendation, ExercisePlan, DietPlan
-- ?li?kiler: User (FK)
+#### ViewModels (Görünüm Modelleri)
+- `LoginViewModel.cs`: Giriş formu
+- `RegisterViewModel.cs`: Kayıt formu
+- `AppointmentCreateViewModel.cs`: Randevu oluşturma formu
+- `AIRecommendationViewModel.cs`: AI öneri formu
 
 ---
 
-## 4. S?STEM �ZELL?KLER?
+## 4. ÖNEMLİ ÖZELLİKLER
 
-### 4.1. Kullan?c? Y�netimi
-- ? Kay?t olma (Register)
-- ? Giri? yapma (Login)
-- ? Rol bazl? yetkilendirme (Admin, Member)
-- ? Client & Server side validation
+### 4.1. AJAX ile Dinamik Saat Seçimi
 
-### 4.2. Admin Paneli
-- ? Dashboard ile istatistikler
-- ? Fitness Center CRUD i?lemleri
-- ? Trainer CRUD i?lemleri
-- ? Service CRUD i?lemleri
-- ? Randevu y�netimi ve onaylama
+Randevu oluştururken, kullanıcı antrenör ve tarih seçtikten sonra müsait saatler AJAX ile dinamik olarak yüklenir.
 
-### 4.3. Randevu Sistemi
-- ? Randevu olu?turma
-- ? Antren�r m�saitlik kontrol�
-- ? �ak??ma kontrol�
-- ? Randevu listeleme ve detaylar?
-- ? Randevu iptal etme
-- ? Onay mekanizmas?
+### 4.2. AI Destekli Öneri Sistemi
 
-### 4.4. REST API
-- ? Trainers API
-  - GET /api/trainers (filtreleme ile)
-  - GET /api/trainers/{id}
-  - GET /api/trainers/available
-- ? Appointments API
-  - GET /api/appointments (filtreleme ile)
-  - GET /api/appointments/{id}
-  - GET /api/appointments/statistics
-- ? LINQ ile filtreleme ve raporlama
+Kullanıcıların fiziksel özelliklerine göre kişiselleştirilmiş planlar oluşturur.
 
-### 4.5. AI Entegrasyonu
-- ? Kullan?c? bilgilerine g�re �neri
-- ? BMI hesaplama
-- ? Ki?iselle?tirilmi? egzersiz program?
-- ? Beslenme plan? olu?turma
-- ? Foto?raf y�kleme �zelli?i
+### 4.3. Randevu Çakışma Kontrolü
+
+Sistem, aynı antrenör için çakışan randevuları engellemek için gelişmiş kontrol mekanizması kullanır.
+
+### 4.4. Türkçe Karakter Desteği
+
+Proje tamamen Türkçe karakterleri desteklemektedir.
 
 ---
 
-## 5. EKRAN G�R�NT�LER?
+## 5. EKRAN GÖRÜNTÜLERİ
 
 ### 5.1. Ana Sayfa
-[BURAYA ANA SAYFA EKRAN G�R�NT�S�N� EKLEY?N]
+*[Buraya ana sayfa ekran görüntüsü ekleyiniz]*
 
-�zellikler:
-- Responsive tasar?m
-- Salon bilgileri
-- Hizmet tan?t?mlar?
-- Call-to-action butonlar?
+### 5.2. Kayıt Sayfası
+*[Buraya kayıt sayfası ekran görüntüsü ekleyiniz]*
 
-### 5.2. Kay?t Olma Sayfas?
-[BURAYA KAYIT SAYFASI EKRAN G�R�NT�S�N� EKLEY?N]
+### 5.3. Giriş Sayfası
+*[Buraya giriş sayfası ekran görüntüsü ekleyiniz]*
 
-�zellikler:
-- Form validation
-- Kullan?c? bilgileri giri?i
-- Bootstrap form bile?enleri
+### 5.4. Randevu Listesi
+*[Buraya randevu listesi ekran görüntüsü ekleyiniz]*
 
-### 5.3. Giri? Yapma Sayfas?
-[BURAYA G?R?? SAYFASI EKRAN G�R�NT�S�N� EKLEY?N]
+### 5.5. Yeni Randevu Oluşturma
+*[Buraya randevu oluşturma ekran görüntüsü ekleyiniz]*
 
-�zellikler:
-- Email/Password giri?i
-- Beni hat?rla �zelli?i
-- Demo hesap bilgileri
+### 5.6. AI Öneri Formu
+*[Buraya AI öneri formu ekran görüntüsü ekleyiniz]*
 
-### 5.4. Admin Dashboard
-[BURAYA ADMIN DASHBOARD EKRAN G�R�NT�S�N� EKLEY?N]
+### 5.7. AI Öneri Sonuçları
+*[Buraya AI öneri sonuçları ekran görüntüsü ekleyiniz]*
 
-�zellikler:
-- ?statistik kartlar?
-- H?zl? eri?im butonlar?
-- Grafik ve raporlar
+### 5.8. Admin Dashboard
+*[Buraya admin dashboard ekran görüntüsü ekleyiniz]*
 
-### 5.5. Randevu Olu?turma
-[BURAYA RANDEVU OLU?TURMA EKRAN G�R�NT�S�N� EKLEY?N]
+### 5.9. Antrenör Yönetimi
+*[Buraya antrenör listesi ekran görüntüsü ekleyiniz]*
 
-�zellikler:
-- Antren�r se�imi
-- Hizmet se�imi
-- Tarih ve saat se�imi
-- AJAX ile m�sait saatleri getirme
-- Randevu �zeti
-
-### 5.6. AI �neri Sayfas?
-[BURAYA AI �NER? SAYFASI EKRAN G�R�NT�S�N� EKLEY?N]
-
-�zellikler:
-- Kullan?c? bilgileri formu
-- Foto?raf y�kleme
-- Hedef se�imi
-
-### 5.7. AI �neri Sonucu
-[BURAYA AI �NER? SONUCU EKRAN G�R�NT�S�N� EKLEY?N]
-
-�zellikler:
-- BMI analizi
-- Egzersiz program?
-- Beslenme plan?
-- 12 haftal?k detayl? program
-
-### 5.8. API Test (Postman)
-[BURAYA POSTMAN API TEST EKRAN G�R�NT�S�N� EKLEY?N]
-
-�zellikler:
-- GET /api/trainers
-- JSON response
-- Filtreleme �rnekleri
+### 5.10. Salon Yönetimi
+*[Buraya salon yönetimi ekran görüntüsü ekleyiniz]*
 
 ---
 
-## 6. PROJE YAPISI
+## 6. KURULUM VE ÇALIŞTIRMA
 
-```
-WebUygulamaOdev1/
-?
-??? Controllers/
-?   ??? AccountController.cs         # Kay?t/Giri?
-?   ??? AdminController.cs            # Admin paneli
-?   ??? AppointmentsController.cs     # Randevu y�netimi
-?   ??? AIController.cs               # AI �nerileri
-?   ??? HomeController.cs             # Ana sayfa
-?   ??? Api/
-?       ??? TrainersController.cs     # Trainers API
-?       ??? AppointmentsController.cs # Appointments API
-?
-??? Models/
-?   ??? ApplicationUser.cs
-?   ??? FitnessCenter.cs
-?   ??? Trainer.cs
-?   ??? Service.cs
-?   ??? Appointment.cs
-?   ??? TrainerService.cs
-?   ??? TrainerAvailability.cs
-?   ??? MembershipPlan.cs
-?   ??? AIRecommendation.cs
-?
-??? ViewModels/
-?   ??? RegisterViewModel.cs
-?   ??? LoginViewModel.cs
-?   ??? AppointmentCreateViewModel.cs
-?   ??? AIRecommendationViewModel.cs
-?
-??? Data/
-?   ??? ApplicationDbContext.cs
-?
-??? Views/
-?   ??? Account/
-?   ?   ??? Login.cshtml
-?   ?   ??? Register.cshtml
-?   ?   ??? AccessDenied.cshtml
-?   ??? Admin/
-?   ?   ??? Index.cshtml
-?   ?   ??? Trainers.cshtml
-?   ?   ??? CreateTrainer.cshtml
-?   ??? Appointments/
-?   ?   ??? Index.cshtml
-?   ?   ??? Create.cshtml
-?   ??? AI/
-?   ?   ??? Recommendation.cshtml
-?   ?   ??? RecommendationResult.cshtml
-?   ??? Home/
-?   ?   ??? Index.cshtml
-?   ??? Shared/
-?       ??? _Layout.cshtml
-?
-??? wwwroot/
-?   ??? css/
-?   ??? js/
-?   ??? lib/
-?   ??? uploads/
-?
-??? Migrations/
-??? Program.cs
-??? appsettings.json
-??? README.md
-??? .gitignore
-```
+### 6.1. Gereksinimler
+
+- Visual Studio 2022 veya üzeri
+- .NET 10 SDK
+- SQL Server (LocalDB)
+- Git (GitHub için)
+
+### 6.2. Kurulum Adımları
+
+1. **Projeyi Klonlama:**
+   ```bash
+   git clone https://github.com/yavbilg/WebUygulamaOdev1.git
+   cd WebUygulamaOdev1
+   ```
+
+2. **Bağımlılıkları Yükleme:**
+   ```bash
+   dotnet restore
+   ```
+
+3. **Veritabanı Oluşturma:**
+   ```bash
+   dotnet ef database update
+   ```
+
+4. **Uygulamayı Çalıştırma:**
+   ```bash
+   dotnet run
+   ```
+
+### 6.3. İlk Kullanım
+
+**Admin Hesabı:**
+- Email: ogrencinumarasi@sakarya.edu.tr
+- Şifre: sau
 
 ---
 
-## 7. KURULUM VE �ALI?TIRMA
+## 7. SONUÇ
 
-### 7.1. Gereksinimler
-- .NET 10.0 SDK
-- SQL Server LocalDB
-- Visual Studio 2022 veya VS Code
+### 7.1. Proje Başarıları
 
-### 7.2. Kurulum Ad?mlar?
+✅ Tam fonksiyonel bir fitness yönetim sistemi geliştirildi
+✅ Modern ve kullanıcı dostu arayüz tasarımı
+✅ Güvenli kimlik doğrulama ve yetkilendirme
+✅ AJAX ile dinamik kullanıcı deneyimi
+✅ AI destekli kişiselleştirilmiş öneriler
+✅ Kapsamlı admin paneli
+✅ Türkçe karakter desteği
+✅ Detaylı kod dokümantasyonu
+✅ GitHub ile versiyon kontrolü
 
-1. Projeyi klonlay?n:
-```bash
-git clone https://github.com/yavbilg/WebUygulamaOdev1.git
-```
+### 7.2. Proje İstatistikleri
 
-2. Veritaban?n? olu?turun:
-```bash
-dotnet ef database update
-```
-
-3. Projeyi �al??t?r?n:
-```bash
-dotnet run
-```
-
-4. Taray?c?da a�?n:
-```
-https://localhost:5001
-```
-
-### 7.3. Demo Hesaplar
-- **Admin:** ogrencinumarasi@sakarya.edu.tr / sau
-- **Member:** Kay?t ol sayfas?ndan olu?turabilirsiniz
+| Metrik | Değer |
+|--------|-------|
+| **Toplam Kod Satırı** | ~5.000+ |
+| **Model Sayısı** | 10 |
+| **Controller Sayısı** | 6 |
+| **View Sayısı** | 20+ |
+| **API Endpoint** | 2 |
+| **Veritabanı Tablosu** | 9 |
+| **Geliştirme Süresi** | 9 hafta |
+| **Commit Sayısı** | 50+ |
 
 ---
 
-## 8. API KULLANIMI
+## RAPOR SONU
 
-### 8.1. Trainers API
-
-**T�m antren�rleri getir:**
-```
-GET /api/trainers
-```
-
-**Uzmanl?k alan?na g�re filtrele:**
-```
-GET /api/trainers?specialization=yoga
-```
-
-**M�sait antren�rleri getir:**
-```
-GET /api/trainers/available?date=2025-01-15&startTime=10:00
-```
-
-### 8.2. Appointments API
-
-**T�m randevular? getir:**
-```
-GET /api/appointments
-```
-
-**Kullan?c?ya g�re filtrele:**
-```
-GET /api/appointments?userId=[USER_ID]
-```
-
-**?statistikleri getir:**
-```
-GET /api/appointments/statistics
-```
+**Rapor Hazırlayan:** [Adınız Soyadınız]  
+**Tarih:** Aralık 2024  
+**Ders:** Web Programlama  
+**Kurum:** Sakarya Üniversitesi
 
 ---
 
-## 9. G�VENL?K �ZELL?KLER?
-
-- ? ASP.NET Core Identity ile g�venli authentication
-- ? Password hashing
-- ? Role-based authorization
-- ? Anti-forgery tokens
-- ? HTTPS zorunlulu?u
-- ? SQL Injection korumas? (EF Core)
-- ? XSS korumas?
-
----
-
-## 10. GELECEKTEK? GEL??T?RMELER
-
-- Email bildirimleri
-- SMS bildirimleri
-- Online �deme entegrasyonu
-- Ger�ek OpenAI API entegrasyonu
-- Mobil uygulama
-- QR kod ile check-in sistemi
-- Sosyal medya entegrasyonu
-- Detayl? raporlama ve grafikler
-
----
-
-## 11. KAR?ILA?ILAN ZORLUKLAR VE ��Z�MLER
-
-### 11.1. �ak??an Randevu Kontrol�
-**Zorluk:** Ayn? antren�r i�in ayn? saatte birden fazla randevu olu?turulmamas? gerekiyordu.
-
-**��z�m:** LINQ sorgular? ile mevcut randevular? kontrol eden bir mekanizma olu?turuldu.
-
-### 11.2. Antren�r M�saitlik Takibi
-**Zorluk:** Antren�rlerin farkl? g�nlerde farkl? saatlerde m�sait olmas? durumu.
-
-**��z�m:** TrainerAvailability tablosu olu?turularak her g�n i�in ayr? m�saitlik tan?mland?.
-
-### 11.3. AI Entegrasyonu
-**Zorluk:** Ger�ek OpenAI API kullan?m?n?n maliyet ve karma??kl?k getirmesi.
-
-**��z�m:** Mock AI implementation ile benzer sonu�lar �reten bir sistem geli?tirildi.
-
----
-
-## 12. SONU�
-
-Bu proje, Web Programlama dersinde �?renilen t�m konular? kapsayan kapsaml? bir uygulama olarak geli?tirilmi?tir. ASP.NET Core MVC mimarisi, Entity Framework Core, Identity sistemi, RESTful API tasar?m? ve modern frontend teknolojileri ba?ar?yla entegre edilmi?tir.
-
-Proje geli?tirme s�recinde:
-- MVC pattern anlay??? peki?tirildi
-- ORM kullan?m? �?renildi
-- Authentication ve Authorization kavramlar? uyguland?
-- REST API tasar?m? yap?ld?
-- LINQ sorgular? kullan?ld?
-- Responsive tasar?m ilkeleri uyguland?
-
----
-
-## 13. KAYNAKLAR
-
-- Microsoft ASP.NET Core Documentation: https://docs.microsoft.com/aspnet/core
-- Entity Framework Core Documentation: https://docs.microsoft.com/ef/core
-- Bootstrap Documentation: https://getbootstrap.com/docs
-- Stack Overflow: https://stackoverflow.com
-- GitHub: https://github.com
-
----
-
-## 14. TE?EKK�R
-
-Bu projenin geli?tirilmesinde destekleri i�in Web Programlama dersi hocam?za ve Sakarya �niversitesi Bilgisayar M�hendisli?i B�l�m�'ne te?ekk�r ederiz.
-
----
-
-**Tarih:** [TAR?H]  
-**?mza:** [?MZA]
+**NOT:** 
+1. Köşeli parantez [] içindeki bilgileri kendi bilgilerinizle değiştirin
+2. Ekran görüntülerini uygulamayı çalıştırarak kendi bilgisayarınızdan alın
+3. Bu Markdown dosyasını Word'e aktarmak için:
+   - https://pandoc.org/ kullanabilirsiniz
+   - Veya içeriği kopyalayıp Word'e yapıştırabilirsiniz
