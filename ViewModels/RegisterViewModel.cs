@@ -19,15 +19,15 @@ namespace FitnessCenterApp.ViewModels
         [Display(Name = "Email")]
         public string Email { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "?ifre zorunludur")]
-        [StringLength(100, ErrorMessage = "{0} en az {2} karakter olmal?d?r.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Şifre zorunludur")]
+        [StringLength(100, ErrorMessage = "{0} en az {2} karakter olmalıdır.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "?ifre")]
+        [Display(Name = "Şifre")]
         public string Password { get; set; } = string.Empty;
 
         [DataType(DataType.Password)]
-        [Display(Name = "?ifre Tekrar")]
-        [Compare("Password", ErrorMessage = "?ifreler e?le?miyor.")]
+        [Display(Name = "Şifre Tekrar")]
+        [Compare("Password", ErrorMessage = "Şifreler eşleşmiyor.")]
         public string ConfirmPassword { get; set; } = string.Empty;
 
         [Phone]
@@ -35,7 +35,7 @@ namespace FitnessCenterApp.ViewModels
         public string? PhoneNumber { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "Do?um Tarihi")]
+        [Display(Name = "Doğum Tarihi")]
         public DateTime? DateOfBirth { get; set; }
 
         [StringLength(200)]

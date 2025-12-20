@@ -1,12 +1,12 @@
 @model IEnumerable<FitnessCenterApp.Models.Appointment>
 
 @{
-    ViewData["Title"] = "Randevular?m";
+    ViewData["Title"] = "Randevularım";
 }
 
 <div class="row mb-3">
     <div class="col-md-6">
-        <h2><i class="fas fa-calendar-check"></i> Randevular?m</h2>
+        <h2><i class="fas fa-calendar-check"></i> Randevularım</h2>
     </div>
     <div class="col-md-6 text-end">
         <a asp-action="Create" class="btn btn-primary">
@@ -32,9 +32,9 @@
             var statusText = appointment.Status switch
             {
                 FitnessCenterApp.Models.AppointmentStatus.Pending => "Bekliyor",
-                FitnessCenterApp.Models.AppointmentStatus.Confirmed => "Onayland?",
-                FitnessCenterApp.Models.AppointmentStatus.Cancelled => "?ptal Edildi",
-                FitnessCenterApp.Models.AppointmentStatus.Completed => "Tamamland?",
+                FitnessCenterApp.Models.AppointmentStatus.Confirmed => "Onaylandı",
+                FitnessCenterApp.Models.AppointmentStatus.Cancelled => "İptal Edildi",
+                FitnessCenterApp.Models.AppointmentStatus.Completed => "Tamamlandı",
                 _ => "Bilinmiyor"
             };
 
@@ -47,7 +47,7 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">
-                            <strong><i class="fas fa-user-tie"></i> Antren�r:</strong> 
+                            <strong><i class="fas fa-user-tie"></i> Antrenör:</strong> 
                             @appointment.Trainer?.FirstName @appointment.Trainer?.LastName<br />
                             
                             <strong><i class="fas fa-dumbbell"></i> Hizmet:</strong> 
@@ -56,10 +56,10 @@
                             <strong><i class="fas fa-clock"></i> Saat:</strong> 
                             @appointment.StartTime.ToString(@"hh\:mm") - @appointment.EndTime.ToString(@"hh\:mm")<br />
                             
-                            <strong><i class="fas fa-hourglass-half"></i> S�re:</strong> 
+                            <strong><i class="fas fa-hourglass-half"></i> Süre:</strong> 
                             @appointment.Service?.DurationMinutes dakika<br />
                             
-                            <strong><i class="fas fa-money-bill-wave"></i> �cret:</strong> 
+                            <strong><i class="fas fa-money-bill-wave"></i> Ücret:</strong> 
                             @appointment.Service?.Price.ToString("C")<br />
                             
                             <strong><i class="fas fa-info-circle"></i> Durum:</strong> 
@@ -83,10 +83,10 @@
                              appointment.Status == FitnessCenterApp.Models.AppointmentStatus.Confirmed)
                         {
                             <form asp-action="Cancel" asp-route-id="@appointment.Id" method="post" class="d-inline" 
-                                  onsubmit="return confirm('Bu randevuyu iptal etmek istedi?inizden emin misiniz?');">
+                                  onsubmit="return confirm('Bu randevuyu iptal etmek istediğinizden emin misiniz?');">
                                 @Html.AntiForgeryToken()
                                 <button type="submit" class="btn btn-sm btn-danger">
-                                    <i class="fas fa-times"></i> ?ptal Et
+                                    <i class="fas fa-times"></i> İptal Et
                                 </button>
                             </form>
                         }
@@ -99,10 +99,10 @@
 else
 {
     <div class="alert alert-info text-center">
-        <h4><i class="fas fa-info-circle"></i> Hen�z randevunuz bulunmamaktad?r.</h4>
-        <p>Yeni bir randevu olu?turmak i�in a?a??daki butona t?klay?n.</p>
+        <h4><i class="fas fa-info-circle"></i> Henüz randevunuz bulunmamaktadır.</h4>
+        <p>Yeni bir randevu oluşturmak için aşağıdaki butona tıklayın.</p>
         <a asp-action="Create" class="btn btn-primary btn-lg">
-            <i class="fas fa-plus"></i> ?lk Randevunuzu Olu?turun
+            <i class="fas fa-plus"></i> İlk Randevunuzu Oluşturun
         </a>
     </div>
 }

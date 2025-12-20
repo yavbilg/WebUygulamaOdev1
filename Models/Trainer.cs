@@ -21,7 +21,7 @@ namespace FitnessCenterApp.Models
         [Phone]
         public string? PhoneNumber { get; set; }
         
-        [Required(ErrorMessage = "Uzmanl?k alan? zorunludur")]
+        [Required(ErrorMessage = "Uzmanlık alanı zorunludur")]
         [StringLength(200)]
         public string Specialization { get; set; } = string.Empty;
         

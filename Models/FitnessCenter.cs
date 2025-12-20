@@ -6,7 +6,7 @@ namespace FitnessCenterApp.Models
     {
         public int Id { get; set; }
         
-        [Required(ErrorMessage = "Salon ad? zorunludur")]
+        [Required(ErrorMessage = "Salon adı zorunludur")]
         [StringLength(100)]
         public string Name { get; set; } = string.Empty;
         
@@ -20,10 +20,10 @@ namespace FitnessCenterApp.Models
         [EmailAddress]
         public string? Email { get; set; }
         
-        [Required(ErrorMessage = "A�?l?? saati zorunludur")]
+        [Required(ErrorMessage = "Açılış saati zorunludur")]
         public TimeSpan OpeningTime { get; set; }
         
-        [Required(ErrorMessage = "Kapan?? saati zorunludur")]
+        [Required(ErrorMessage = "Kapanış saati zorunludur")]
         public TimeSpan ClosingTime { get; set; }
         
         public string? Description { get; set; }

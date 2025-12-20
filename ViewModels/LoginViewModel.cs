@@ -9,12 +9,12 @@ namespace FitnessCenterApp.ViewModels
         [Display(Name = "Email")]
         public string Email { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "?ifre zorunludur")]
+        [Required(ErrorMessage = "Şifre zorunludur")]
         [DataType(DataType.Password)]
-        [Display(Name = "?ifre")]
+        [Display(Name = "Şifre")]
         public string Password { get; set; } = string.Empty;
 
-        [Display(Name = "Beni Hat?rla")]
+        [Display(Name = "Beni Hatırla")]
         public bool RememberMe { get; set; }
     }
 }

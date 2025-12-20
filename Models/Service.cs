@@ -6,19 +6,19 @@ namespace FitnessCenterApp.Models
     {
         public int Id { get; set; }
         
-        [Required(ErrorMessage = "Hizmet ad? zorunludur")]
+        [Required(ErrorMessage = "Hizmet adı zorunludur")]
         [StringLength(100)]
         public string Name { get; set; } = string.Empty;
         
-        [Required(ErrorMessage = "A�?klama zorunludur")]
+        [Required(ErrorMessage = "Açıklama zorunludur")]
         public string Description { get; set; } = string.Empty;
         
-        [Required(ErrorMessage = "S�re zorunludur")]
-        [Range(15, 240, ErrorMessage = "S�re 15-240 dakika aras?nda olmal?d?r")]
+        [Required(ErrorMessage = "Süre zorunludur")]
+        [Range(15, 240, ErrorMessage = "Süre 15-240 dakika arasında olmalıdır")]
         public int DurationMinutes { get; set; }
         
-        [Required(ErrorMessage = "�cret zorunludur")]
-        [Range(0, 10000, ErrorMessage = "�cret 0-10000 TL aras?nda olmal?d?r")]
+        [Required(ErrorMessage = "Ücret zorunludur")]
+        [Range(0, 10000, ErrorMessage = "Ücret 0-10000 TL arasında olmalıdır")]
         public decimal Price { get; set; }
         
         [StringLength(50)]

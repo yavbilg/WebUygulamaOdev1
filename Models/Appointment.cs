@@ -15,22 +15,22 @@ namespace FitnessCenterApp.Models
         public int Id { get; set; }
         
         // Foreign Keys
-        [Required(ErrorMessage = "Üye seçimi zorunludur")]
+        [Required(ErrorMessage = "Ãœye seÃ§imi zorunludur")]
         public string UserId { get; set; } = string.Empty;
         
-        [Required(ErrorMessage = "Antrenör seçimi zorunludur")]
+        [Required(ErrorMessage = "AntrenÃ¶r seÃ§imi zorunludur")]
         public int TrainerId { get; set; }
         
-        [Required(ErrorMessage = "Hizmet seçimi zorunludur")]
+        [Required(ErrorMessage = "Hizmet seÃ§imi zorunludur")]
         public int ServiceId { get; set; }
         
         [Required(ErrorMessage = "Randevu tarihi zorunludur")]
         public DateTime AppointmentDate { get; set; }
         
-        [Required(ErrorMessage = "Ba?lang?ç saati zorunludur")]
+        [Required(ErrorMessage = "BaÅŸlangÄ±Ã§ saati zorunludur")]
         public TimeSpan StartTime { get; set; }
         
-        [Required(ErrorMessage = "Biti? saati zorunludur")]
+        [Required(ErrorMessage = "BitiÅŸ saati zorunludur")]
         public TimeSpan EndTime { get; set; }
         
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;

@@ -1,16 +1,16 @@
 @model IEnumerable<FitnessCenterApp.Models.Trainer>
 
 @{
-    ViewData["Title"] = "Antrenörler";
+    ViewData["Title"] = "AntrenÃ¶rler";
 }
 
 <div class="row mb-3">
     <div class="col-md-6">
-        <h2><i class="fas fa-user-tie"></i> Antrenörler</h2>
+        <h2><i class="fas fa-user-tie"></i> AntrenÃ¶rler</h2>
     </div>
     <div class="col-md-6 text-end">
         <a asp-action="CreateTrainer" class="btn btn-success">
-            <i class="fas fa-plus"></i> Yeni Antrenör Ekle
+            <i class="fas fa-plus"></i> Yeni AntrenÃ¶r Ekle
         </a>
     </div>
 </div>
@@ -24,11 +24,11 @@
                     <th>Ad Soyad</th>
                     <th>Email</th>
                     <th>Telefon</th>
-                    <th>Uzmanl?k</th>
+                    <th>UzmanlÄ±k</th>
                     <th>Deneyim</th>
                     <th>Salon</th>
                     <th>Durum</th>
-                    <th>??lemler</th>
+                    <th>Ä°ÅŸlemler</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +39,7 @@
                         <td>@trainer.Email</td>
                         <td>@trainer.PhoneNumber</td>
                         <td>@trainer.Specialization</td>
-                        <td>@trainer.ExperienceYears y?l</td>
+                        <td>@trainer.ExperienceYears yÄ±l</td>
                         <td>@trainer.FitnessCenter?.Name</td>
                         <td>
                             @if (trainer.IsAvailable)
@@ -56,7 +56,7 @@
                                 <i class="fas fa-edit"></i>
                             </a>
                             <form asp-action="DeleteTrainer" asp-route-id="@trainer.Id" method="post" class="d-inline"
-                                  onsubmit="return confirm('Bu antrenörü silmek istedi?inizden emin misiniz?');">
+                                  onsubmit="return confirm('Bu antrenÃ¶rÃ¼ silmek istediÄŸinizden emin misiniz?');">
                                 @Html.AntiForgeryToken()
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash"></i>
@@ -72,6 +72,6 @@
 else
 {
     <div class="alert alert-warning">
-        <i class="fas fa-exclamation-triangle"></i> Henüz antrenör eklenmemi?.
+        <i class="fas fa-exclamation-triangle"></i> HenÃ¼z antrenÃ¶r eklenmemiÅŸ.
     </div>
 }
